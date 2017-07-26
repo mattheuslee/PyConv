@@ -39,7 +39,8 @@ const std::vector<std::string> ReservedWords::reservedWords_ {
     "try",
     "while",
     "with",
-    "yield" };
+    "yield"
+};
 
 const bool ReservedWords::isReservedWord(std::string word) {
     return std::find(reservedWords_.begin(), reservedWords_.end(), word) != reservedWords_.end();

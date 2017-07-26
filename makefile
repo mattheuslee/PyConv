@@ -2,6 +2,9 @@ CC = g++
 CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=c++11
 DEPS =
 OBJ = PyConv.o
+TEST_FILES = ./src/PyConv/test/MainTest.cpp \
+./src/PyConv/test/util/language/python/ReservedWordsTest.cpp \
+./src/PyConv/main/util/language/python/ReservedWords.cpp
 
 PyConv: ./src/PyConv/main/PyConv.cpp
 	$(CC) -o PyConv $^ $(CFLAGS)
@@ -16,11 +19,13 @@ partially_clean:
 	mv temp/* .
 	rm -r temp
 
-test: ./src/PyConv/test/MainTest.cpp ./src/PyConv/test/util/language/python/ReservedWordsTest.cpp ./src/PyConv/main/util/language/python/ReservedWords.cpp
+test: $(TEST_FILES)
+	$(CC) -o test $^ $(CFLAGS)
+	./test
+	make clean
+
+coverage: $(TEST_FILES)
 	$(CC) -o test $^ $(CFLAGS)
 	./test
 	gcov ReservedWords.cpp > gcovlog.txt
 	make partially_clean
-
-coverage:
-	make test
