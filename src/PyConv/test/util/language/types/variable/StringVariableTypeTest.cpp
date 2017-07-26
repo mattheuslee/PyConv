@@ -1,6 +1,6 @@
 #include "test/catch.hpp"
 
-#include "main/util/language/types/StringVariableType.hpp"
+#include "main/util/language/types/variable/StringVariableType.hpp"
 
 TEST_CASE("String Variable Type class") {
     using pyconv::util::language::types::StringVariableType;

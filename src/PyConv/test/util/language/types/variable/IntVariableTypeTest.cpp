@@ -1,6 +1,6 @@
 #include "test/catch.hpp"
 
-#include "main/util/language/types/IntVariableType.hpp"
+#include "main/util/language/types/variable/IntVariableType.hpp"
 
 TEST_CASE("Int Variable Type class") {
     using pyconv::util::language::types::IntVariableType;

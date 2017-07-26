@@ -1,6 +1,6 @@
 #include "test/catch.hpp"
 
-#include "main/util/language/types/UnknownVariableType.hpp"
+#include "main/util/language/types/variable/UnknownVariableType.hpp"
 
 TEST_CASE("Unknown Variable Type class") {
     using pyconv::util::language::types::UnknownVariableType;

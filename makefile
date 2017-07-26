@@ -5,15 +5,15 @@ OBJ = PyConv.o
 TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/python/ReservedWordsTest.cpp \
 ./src/PyConv/main/util/language/python/ReservedWords.cpp \
-./src/PyConv/main/util/language/types/VariableType.cpp \
-./src/PyConv/test/util/language/types/IntVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/IntVariableType.cpp \
-./src/PyConv/test/util/language/types/DoubleVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/DoubleVariableType.cpp \
-./src/PyConv/test/util/language/types/StringVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/StringVariableType.cpp \
-./src/PyConv/test/util/language/types/UnknownVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/UnknownVariableType.cpp
+./src/PyConv/main/util/language/types/variable/VariableType.cpp \
+./src/PyConv/test/util/language/types/variable/IntVariableTypeTest.cpp \
+./src/PyConv/main/util/language/types/variable/IntVariableType.cpp \
+./src/PyConv/test/util/language/types/variable/DoubleVariableTypeTest.cpp \
+./src/PyConv/main/util/language/types/variable/DoubleVariableType.cpp \
+./src/PyConv/test/util/language/types/variable/StringVariableTypeTest.cpp \
+./src/PyConv/main/util/language/types/variable/StringVariableType.cpp \
+./src/PyConv/test/util/language/types/variable/UnknownVariableTypeTest.cpp \
+./src/PyConv/main/util/language/types/variable/UnknownVariableType.cpp
 
 PyConv: ./src/PyConv/main/PyConv.cpp
 	$(CC) -o PyConv $^ $(CFLAGS)

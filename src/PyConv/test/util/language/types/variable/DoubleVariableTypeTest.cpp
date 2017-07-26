@@ -1,6 +1,6 @@
 #include "test/catch.hpp"
 
-#include "main/util/language/types/DoubleVariableType.hpp"
+#include "main/util/language/types/variable/DoubleVariableType.hpp"
 
 TEST_CASE("Double Variable Type class") {
     using pyconv::util::language::types::DoubleVariableType;
