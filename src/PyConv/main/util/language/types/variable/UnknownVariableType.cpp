@@ -6,6 +6,7 @@ namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
+namespace variable {
 
 UnknownVariableType::UnknownVariableType() {
     varType_ = VarType::UNKNOWN;
@@ -19,6 +20,7 @@ std::string UnknownVariableType::str() {
     return "unknown";
 }
 
+}
 }
 }
 }

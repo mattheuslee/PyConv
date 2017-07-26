@@ -6,6 +6,7 @@ namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
+namespace variable {
 
 enum VarType {
     INT,
@@ -28,6 +29,7 @@ protected:
 
 };
 
+}
 }
 }
 }

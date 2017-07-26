@@ -6,6 +6,7 @@ namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
+namespace variable {
 
 DoubleVariableType::DoubleVariableType() {
     varType_ = VarType::DOUBLE;
@@ -19,6 +20,7 @@ std::string DoubleVariableType::str() {
     return "double";
 }
 
+}
 }
 }
 }

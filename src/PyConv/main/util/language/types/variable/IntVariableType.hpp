@@ -8,6 +8,7 @@ namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
+namespace variable {
 
 class IntVariableType : public VariableType {
 
@@ -24,6 +25,7 @@ protected:
 
 };
 
+}
 }
 }
 }

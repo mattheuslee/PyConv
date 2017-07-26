@@ -6,6 +6,7 @@ namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
+namespace variable {
 
 StringVariableType::StringVariableType() {
     varType_ = VarType::STRING;
@@ -19,6 +20,7 @@ std::string StringVariableType::str() {
     return "string";
 }
 
+}
 }
 }
 }
