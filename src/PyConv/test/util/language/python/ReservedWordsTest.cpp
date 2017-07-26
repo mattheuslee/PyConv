@@ -6,43 +6,43 @@ TEST_CASE("Python reserved words identified") {
     using pyconv::util::language::python::ReservedWords;
 
     SECTION("Known reserved words") {
-        REQUIRE(ReservedWords::isReservedWord("and"));
-        REQUIRE(ReservedWords::isReservedWord("as"));
-        REQUIRE(ReservedWords::isReservedWord("assert"));
-        REQUIRE(ReservedWords::isReservedWord("break"));
-        REQUIRE(ReservedWords::isReservedWord("class"));
-        REQUIRE(ReservedWords::isReservedWord("continue"));
-        REQUIRE(ReservedWords::isReservedWord("def"));
-        REQUIRE(ReservedWords::isReservedWord("del"));
-        REQUIRE(ReservedWords::isReservedWord("elif"));
-        REQUIRE(ReservedWords::isReservedWord("else"));
-        REQUIRE(ReservedWords::isReservedWord("except"));
-        REQUIRE(ReservedWords::isReservedWord("exec"));
-        REQUIRE(ReservedWords::isReservedWord("finally"));
-        REQUIRE(ReservedWords::isReservedWord("for"));
-        REQUIRE(ReservedWords::isReservedWord("from"));
-        REQUIRE(ReservedWords::isReservedWord("global"));
-        REQUIRE(ReservedWords::isReservedWord("if"));
-        REQUIRE(ReservedWords::isReservedWord("import"));
-        REQUIRE(ReservedWords::isReservedWord("in"));
-        REQUIRE(ReservedWords::isReservedWord("is"));
-        REQUIRE(ReservedWords::isReservedWord("lambda"));
-        REQUIRE(ReservedWords::isReservedWord("not"));
-        REQUIRE(ReservedWords::isReservedWord("or"));
-        REQUIRE(ReservedWords::isReservedWord("pass"));
-        REQUIRE(ReservedWords::isReservedWord("print"));
-        REQUIRE(ReservedWords::isReservedWord("raise"));
-        REQUIRE(ReservedWords::isReservedWord("return"));
-        REQUIRE(ReservedWords::isReservedWord("try"));
-        REQUIRE(ReservedWords::isReservedWord("while"));
-        REQUIRE(ReservedWords::isReservedWord("with"));
-        REQUIRE(ReservedWords::isReservedWord("yield"));
+        CHECK(ReservedWords::isReservedWord("and"));
+        CHECK(ReservedWords::isReservedWord("as"));
+        CHECK(ReservedWords::isReservedWord("assert"));
+        CHECK(ReservedWords::isReservedWord("break"));
+        CHECK(ReservedWords::isReservedWord("class"));
+        CHECK(ReservedWords::isReservedWord("continue"));
+        CHECK(ReservedWords::isReservedWord("def"));
+        CHECK(ReservedWords::isReservedWord("del"));
+        CHECK(ReservedWords::isReservedWord("elif"));
+        CHECK(ReservedWords::isReservedWord("else"));
+        CHECK(ReservedWords::isReservedWord("except"));
+        CHECK(ReservedWords::isReservedWord("exec"));
+        CHECK(ReservedWords::isReservedWord("finally"));
+        CHECK(ReservedWords::isReservedWord("for"));
+        CHECK(ReservedWords::isReservedWord("from"));
+        CHECK(ReservedWords::isReservedWord("global"));
+        CHECK(ReservedWords::isReservedWord("if"));
+        CHECK(ReservedWords::isReservedWord("import"));
+        CHECK(ReservedWords::isReservedWord("in"));
+        CHECK(ReservedWords::isReservedWord("is"));
+        CHECK(ReservedWords::isReservedWord("lambda"));
+        CHECK(ReservedWords::isReservedWord("not"));
+        CHECK(ReservedWords::isReservedWord("or"));
+        CHECK(ReservedWords::isReservedWord("pass"));
+        CHECK(ReservedWords::isReservedWord("print"));
+        CHECK(ReservedWords::isReservedWord("raise"));
+        CHECK(ReservedWords::isReservedWord("return"));
+        CHECK(ReservedWords::isReservedWord("try"));
+        CHECK(ReservedWords::isReservedWord("while"));
+        CHECK(ReservedWords::isReservedWord("with"));
+        CHECK(ReservedWords::isReservedWord("yield"));
     }
 
     SECTION("Known non-reserved words") {
-        REQUIRE(!ReservedWords::isReservedWord("test"));
-        REQUIRE(!ReservedWords::isReservedWord("demo"));
-        REQUIRE(!ReservedWords::isReservedWord("python"));
+        CHECK_FALSE(ReservedWords::isReservedWord("test"));
+        CHECK_FALSE(ReservedWords::isReservedWord("demo"));
+        CHECK_FALSE(ReservedWords::isReservedWord("python"));
     }
 
 }
