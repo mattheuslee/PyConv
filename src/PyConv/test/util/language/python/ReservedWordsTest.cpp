@@ -1,6 +1,6 @@
-#include "../../../catch.hpp"
+#include "test/catch.hpp"
 
-#include "../../../../main/util/language/python/ReservedWords.hpp"
+#include "main/util/language/python/ReservedWords.hpp"
 
 TEST_CASE("Python reserved words identified") {
     using pyconv::util::language::python::ReservedWords;
