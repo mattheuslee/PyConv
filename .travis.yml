@@ -2,4 +2,4 @@ language: cpp
 compiler: gcc
 
 before_install:
- - chmod +x configure
+ - pip install --user cpp-coveralls
