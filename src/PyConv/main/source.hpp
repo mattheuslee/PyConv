@@ -1,5 +1,0 @@
-namespace pyconv {
-
-int test();
-
-}

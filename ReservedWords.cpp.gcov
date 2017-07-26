@@ -1,0 +1,56 @@
+        -:    0:Source:src/PyConv/main/util/language/python/ReservedWords.cpp
+        -:    0:Graph:ReservedWords.gcno
+        -:    0:Data:ReservedWords.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "ReservedWords.hpp"
+        -:    2:
+        -:    3:#include <algorithm>
+        -:    4:#include <string>
+        -:    5:
+        -:    6:namespace pyconv {
+        -:    7:namespace util {
+        -:    8:namespace language {
+        -:    9:namespace python {
+        -:   10:
+       34:   11:const std::vector<std::string> ReservedWords::reservedWords_ {
+        -:   12:    "and",
+        -:   13:    "as",
+        -:   14:    "assert",
+        -:   15:    "break",
+        -:   16:    "class",
+        -:   17:    "continue",
+        -:   18:    "def",
+        -:   19:    "del",
+        -:   20:    "elif",
+        -:   21:    "else",
+        -:   22:    "except",
+        -:   23:    "exec",
+        -:   24:    "finally",
+        -:   25:    "for",
+        -:   26:    "from",
+        -:   27:    "global",
+        -:   28:    "if",
+        -:   29:    "import",
+        -:   30:    "in",
+        -:   31:    "is",
+        -:   32:    "lambda",
+        -:   33:    "not",
+        -:   34:    "or",
+        -:   35:    "pass",
+        -:   36:    "print",
+        -:   37:    "raise",
+        -:   38:    "return",
+        -:   39:    "try",
+        -:   40:    "while",
+        -:   41:    "with",
+       33:   42:    "yield" };
+        -:   43:
+       34:   44:const bool ReservedWords::isReservedWord(std::string word) {
+       34:   45:    return std::find(reservedWords_.begin(), reservedWords_.end(), word) != reservedWords_.end();
+        -:   46:}
+        -:   47:
+        -:   48:}
+        -:   49:}
+        -:   50:}
+        3:   51:}‹ÏDÐf
