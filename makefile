@@ -9,12 +9,15 @@ PyConv: ./src/PyConv/main/PyConv.cpp
 clean:
 	rm -f ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov
 
-test: ./src/PyConv/test/basic.cpp ./src/PyConv/main/source.cpp
-	$(CC) -o test $^ $(CFLAGS)
-	./test
-	gcov source.cpp > gcovlog.txt
+partially_clean:
 	mkdir temp
 	mv ./source.cpp.gcov temp
 	make clean
 	mv temp/* .
 	rm -r temp
+
+test: ./src/PyConv/test/basic.cpp ./src/PyConv/main/source.cpp
+	$(CC) -o test $^ $(CFLAGS)
+	./test
+	gcov source.cpp > gcovlog.txt
+	make partially_clean
