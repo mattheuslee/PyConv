@@ -21,3 +21,6 @@ test: ./src/PyConv/test/basic.cpp ./src/PyConv/main/source.cpp
 	./test
 	gcov source.cpp > gcovlog.txt
 	make partially_clean
+
+coverage:
+	make test
