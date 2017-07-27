@@ -2,6 +2,10 @@ CC = g++
 CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=c++11 -I./src/PyConv
 DEPS =
 OBJ = PyConv.o
+
+MAIN_FILES = ./src/PyConv/main/PyConv.cpp \
+./src/PyConv/main/util/logging/easylogging++.cc
+
 TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/python/ReservedWordsTest.cpp \
 ./src/PyConv/main/util/language/python/ReservedWords.cpp \
@@ -18,8 +22,13 @@ TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/types/line/BlankLineTypeTest.cpp \
 ./src/PyConv/main/util/language/types/line/BlankLineType.cpp
 
-PyConv: ./src/PyConv/main/PyConv.cpp
+PyConv: $(MAIN_FILES)
 	$(CC) -o PyConv $^ $(CFLAGS)
+
+run:
+	make clean
+	make PyConv
+	./Pyconv
 
 clean:
 	rm -f ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt

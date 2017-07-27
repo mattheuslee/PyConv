@@ -1,11 +1,10 @@
-#include <iostream>
+#include "util/logging/easylogging++.h"
 
-int main(void) {
+INITIALIZE_EASYLOGGINGPP
 
-    using std::cout;
-    using std::endl;
+int main(int argc, char* argv[]) {
 
-    cout << "hello" << endl;
+    LOG(INFO) << "Testing logs";
 
     return 0;
 }
