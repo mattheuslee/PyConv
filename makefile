@@ -69,7 +69,7 @@ coverage: $(TEST_FILES) $(FILES_UNDER_TEST)
 	cp gcov_loop.sh $(FILES_UNDER_TEST_LOCATION)
 	cd $(FILES_UNDER_TEST_LOCATION)
 	find -name "*.cpp" -exec basename {} > ./filenames.txt \;
-	./gcov_loop.sh
+	sh ./gcov_loop.sh
 	cd $(FILES_UNDER_TEST_LOCATION)
 	cp ./*.cpp.gcov ../
 	cd ..
