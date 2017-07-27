@@ -9,8 +9,8 @@ namespace types {
 namespace variable {
 
 enum Type {
-    INT,
     DOUBLE,
+    INT,
     STRING,
     UNKNOWN
 };

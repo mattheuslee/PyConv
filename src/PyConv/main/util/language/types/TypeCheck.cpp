@@ -12,6 +12,10 @@ bool TypeCheck::isBlankLineType(LineType const & lineType) {
     return lineType.type() == line::Type::BLANK;
 }
 
+bool TypeCheck::isVariableAssignmentLineType(LineType const & lineType) {
+    return lineType.type() == line::Type::VARIABLE_ASSIGNMENT;
+}
+
 bool TypeCheck::isVariableDeclarationLineType(LineType const & lineType) {
     return lineType.type() == line::Type::VARIABLE_DECLARATION;
 }

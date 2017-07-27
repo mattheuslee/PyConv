@@ -15,6 +15,7 @@ class TypeCheck {
 
 public:
     static bool isBlankLineType(LineType const & lineType);
+    static bool isVariableAssignmentLineType(LineType const & lineType);
     static bool isVariableDeclarationLineType(LineType const & lineType);
 
     static bool isDoubleVariableType(VariableType const & variableType);

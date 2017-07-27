@@ -2,6 +2,7 @@
 
 #include "main/util/language/types/TypeCheck.hpp"
 #include "main/util/language/types/line/BlankLineType.hpp"
+#include "main/util/language/types/line/VariableAssignmentLineType.hpp"
 #include "main/util/language/types/line/VariableDeclarationLineType.hpp"
 #include "main/util/language/types/variable/DoubleVariableType.hpp"
 #include "main/util/language/types/variable/IntVariableType.hpp"
@@ -15,6 +16,7 @@ namespace types {
 
 TEST_CASE("Type Check class") {
     line::BlankLineType blankLineType;
+    line::VariableAssignmentLineType variableAssignmentLineType;
     line::VariableDeclarationLineType variableDeclarationLineType;
 
     variable::DoubleVariableType doubleVariableType;
@@ -24,12 +26,20 @@ TEST_CASE("Type Check class") {
 
     SECTION("Is Blank Line Type") {
         CHECK(TypeCheck::isBlankLineType(blankLineType));
+        CHECK_FALSE(TypeCheck::isBlankLineType(variableAssignmentLineType));
         CHECK_FALSE(TypeCheck::isBlankLineType(variableDeclarationLineType));
+    }
+
+    SECTION("Is Variable Assignment Line Type") {
+        CHECK(TypeCheck::isVariableAssignmentLineType(variableAssignmentLineType));
+        CHECK_FALSE(TypeCheck::isVariableAssignmentLineType(blankLineType));
+        CHECK_FALSE(TypeCheck::isVariableAssignmentLineType(variableDeclarationLineType));
     }
 
     SECTION("Is Variable Declaration Line Type") {
         CHECK(TypeCheck::isVariableDeclarationLineType(variableDeclarationLineType));
         CHECK_FALSE(TypeCheck::isVariableDeclarationLineType(blankLineType));
+        CHECK_FALSE(TypeCheck::isVariableDeclarationLineType(variableAssignmentLineType));
     }
 
     SECTION("Is Double Variable Type") {

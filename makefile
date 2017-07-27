@@ -2,11 +2,18 @@ CC = g++
 CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=c++11 -I./src/PyConv
 DEPS =
 OBJ = PyConv.o
+FILES_UNDER_TEST_LOCATION = gcov_folder
 
-MAIN_FILES = ./src/PyConv/main/PyConv.cpp \
+MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp" -o -name "*.cc")
+
+TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
+
+FILES_UNDER_TEST := $(shell find ./src/PyConv/main -not -name "PyConv.cpp" -and -name "*.cpp")
+
+TEMP = ./src/PyConv/main/PyConv.cpp \
 ./src/PyConv/main/util/logging/easylogging++.cc
 
-TEST_FILES = ./src/PyConv/test/MainTest.cpp \
+TEST = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/python/ReservedWordsTest.cpp \
 ./src/PyConv/main/util/language/python/ReservedWords.cpp \
 ./src/PyConv/test/util/language/types/TypeCheckTest.cpp \
@@ -14,6 +21,8 @@ TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/main/util/language/types/line/LineType.cpp \
 ./src/PyConv/test/util/language/types/line/BlankLineTypeTest.cpp \
 ./src/PyConv/main/util/language/types/line/BlankLineType.cpp \
+./src/PyConv/test/util/language/types/line/VariableAssignmentLineTypeTest.cpp \
+./src/PyConv/main/util/language/types/line/VariableAssignmentLineType.cpp \
 ./src/PyConv/test/util/language/types/line/VariableDeclarationLineTypeTest.cpp \
 ./src/PyConv/main/util/language/types/line/VariableDeclarationLineType.cpp \
 ./src/PyConv/main/util/language/types/variable/VariableType.cpp \
@@ -37,7 +46,8 @@ run:
 clean:
 	rm -f ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt
 
-partially_clean:
+clean_retain_coverage:
+	rm -f -r gcov_folder
 	mkdir temp
 	mv ./*.cpp.gcov temp
 	make clean
@@ -49,14 +59,18 @@ test: $(TEST_FILES)
 	./test
 	make clean
 
-coverage: $(TEST_FILES)
-	$(CC) -o test $^ $(CFLAGS)
+coverage: $(TEST_FILES) $(FILES_UNDER_TEST)
+	$(CC) -o test $(TEST_FILES) $(CFLAGS)
 	./test
-	gcov ReservedWords.cpp > gcovlog.txt
-	gcov TypeCheck.cpp > gcovlog.txt
-	gcov VariableDeclarationLineType.cpp > gcovlog.txt
-	gcov IntVariableType.cpp > gcovlog.txt
-	gcov DoubleVariableType.cpp > gcovlog.txt
-	gcov StringVariableType.cpp > gcovlog.txt
-	gcov UnknownVariableType.cpp > gcovlog.txt
-	make partially_clean
+	mkdir $(FILES_UNDER_TEST_LOCATION)
+	find ./src/PyConv/main -not -name "PyConv.cpp" -and -name "*.cpp" -exec cp -t ./$(FILES_UNDER_TEST_LOCATION) {} \;
+	cp *.gcno $(FILES_UNDER_TEST_LOCATION)
+	cp *.gcda $(FILES_UNDER_TEST_LOCATION)
+	cp gcov_loop.sh $(FILES_UNDER_TEST_LOCATION)
+	cd $(FILES_UNDER_TEST_LOCATION)
+	find -name "*.cpp" -exec basename {} > ./filenames.txt \;
+	./gcov_loop.sh
+	cd $(FILES_UNDER_TEST_LOCATION)
+	cp ./*.cpp.gcov ../
+	cd ..
+	make clean_retain_coverage
