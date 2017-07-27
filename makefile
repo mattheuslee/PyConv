@@ -11,6 +11,11 @@ TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/main/util/language/python/ReservedWords.cpp \
 ./src/PyConv/test/util/language/types/TypeCheckTest.cpp \
 ./src/PyConv/main/util/language/types/TypeCheck.cpp \
+./src/PyConv/main/util/language/types/line/LineType.cpp \
+./src/PyConv/test/util/language/types/line/BlankLineTypeTest.cpp \
+./src/PyConv/main/util/language/types/line/BlankLineType.cpp \
+./src/PyConv/test/util/language/types/line/VariableDeclarationLineTypeTest.cpp \
+./src/PyConv/main/util/language/types/line/VariableDeclarationLineType.cpp \
 ./src/PyConv/main/util/language/types/variable/VariableType.cpp \
 ./src/PyConv/test/util/language/types/variable/IntVariableTypeTest.cpp \
 ./src/PyConv/main/util/language/types/variable/IntVariableType.cpp \
@@ -19,10 +24,7 @@ TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/types/variable/StringVariableTypeTest.cpp \
 ./src/PyConv/main/util/language/types/variable/StringVariableType.cpp \
 ./src/PyConv/test/util/language/types/variable/UnknownVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/variable/UnknownVariableType.cpp \
-./src/PyConv/main/util/language/types/line/LineType.cpp \
-./src/PyConv/test/util/language/types/line/BlankLineTypeTest.cpp \
-./src/PyConv/main/util/language/types/line/BlankLineType.cpp
+./src/PyConv/main/util/language/types/variable/UnknownVariableType.cpp
 
 PyConv: $(MAIN_FILES)
 	$(CC) -o PyConv $^ $(CFLAGS)
@@ -52,6 +54,7 @@ coverage: $(TEST_FILES)
 	./test
 	gcov ReservedWords.cpp > gcovlog.txt
 	gcov TypeCheck.cpp > gcovlog.txt
+	gcov VariableDeclarationLineType.cpp > gcovlog.txt
 	gcov IntVariableType.cpp > gcovlog.txt
 	gcov DoubleVariableType.cpp > gcovlog.txt
 	gcov StringVariableType.cpp > gcovlog.txt

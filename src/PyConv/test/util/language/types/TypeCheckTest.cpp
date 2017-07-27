@@ -1,6 +1,7 @@
 #include "test/catch.hpp"
 
 #include "main/util/language/types/TypeCheck.hpp"
+#include "main/util/language/types/line/BlankLineType.hpp"
 #include "main/util/language/types/variable/DoubleVariableType.hpp"
 #include "main/util/language/types/variable/IntVariableType.hpp"
 #include "main/util/language/types/variable/StringVariableType.hpp"
@@ -12,10 +13,17 @@ namespace language {
 namespace types {
 
 TEST_CASE("Type Check class") {
+    line::BlankLineType blankLineType;
+
     variable::DoubleVariableType doubleVariableType;
     variable::IntVariableType intVariableType;
     variable::StringVariableType stringVariableType;
     variable::UnknownVariableType unknownVariableType;
+
+    SECTION("Is Blank Line Type") {
+        CHECK(TypeCheck::isBlankLineType(blankLineType));
+
+    }
 
     SECTION("Is Double Variable Type") {
         CHECK(TypeCheck::isDoubleVariableType(doubleVariableType));

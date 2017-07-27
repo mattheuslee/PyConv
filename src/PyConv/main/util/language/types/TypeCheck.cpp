@@ -6,22 +6,30 @@ namespace language {
 namespace types {
 
 using variable::VariableType;
-using variable::Type;
+using line::LineType;
+
+bool TypeCheck::isBlankLineType(LineType const & lineType) {
+    return lineType.type() == line::Type::BLANK;
+}
+
+bool TypeCheck::isVariableDeclarationLineType(LineType const & lineType) {
+    return lineType.type() == line::Type::VARIABLE_DECLARATION;
+}
 
 bool TypeCheck::isDoubleVariableType(VariableType const & variableType) {
-    return variableType.type() == Type::DOUBLE;
+    return variableType.type() == variable::Type::DOUBLE;
 }
 
 bool TypeCheck::isIntVariableType(VariableType const & variableType) {
-    return variableType.type() == Type::INT;
+    return variableType.type() == variable::Type::INT;
 }
 
 bool TypeCheck::isStringVariableType(VariableType const & variableType) {
-    return variableType.type() == Type::STRING;
+    return variableType.type() == variable::Type::STRING;
 }
 
 bool TypeCheck::isUnknownVariableType(VariableType const & variableType) {
-    return variableType.type() == Type::UNKNOWN;
+    return variableType.type() == variable::Type::UNKNOWN;
 }
 
 }
