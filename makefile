@@ -51,6 +51,9 @@ coverage: $(TEST_FILES)
 	$(CC) -o test $^ $(CFLAGS)
 	./test
 	gcov ReservedWords.cpp > gcovlog.txt
+	gcov TypeCheck.cpp > gcovlog.txt
 	gcov IntVariableType.cpp > gcovlog.txt
 	gcov DoubleVariableType.cpp > gcovlog.txt
+	gcov StringVariableType.cpp > gcovlog.txt
+	gcov UnknownVariableType.cpp > gcovlog.txt
 	make partially_clean
