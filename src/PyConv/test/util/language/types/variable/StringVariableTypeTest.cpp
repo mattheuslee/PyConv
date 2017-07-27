@@ -8,7 +8,7 @@ TEST_CASE("String Variable Type class") {
     StringVariableType stringVariableType;
 
     SECTION("Var Type") {
-        CHECK(stringVariableType.varType() == pyconv::util::language::types::variable::VarType::STRING);
+        CHECK(stringVariableType.type() == pyconv::util::language::types::variable::Type::STRING);
     }
 
     SECTION("To string") {

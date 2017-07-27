@@ -9,15 +9,8 @@ namespace types {
 namespace variable {
 
 IntVariableType::IntVariableType() {
-    varType_ = VarType::INT;
-}
-
-VarType IntVariableType::varType() {
-    return varType_;
-}
-
-std::string IntVariableType::str() {
-    return "int";
+    type_ = Type::INT;
+    name_ = "int";
 }
 
 }

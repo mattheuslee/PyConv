@@ -8,7 +8,7 @@ TEST_CASE("Double Variable Type class") {
     DoubleVariableType doubleVariableType;
 
     SECTION("Var Type") {
-        CHECK(doubleVariableType.varType() == pyconv::util::language::types::variable::VarType::DOUBLE);
+        CHECK(doubleVariableType.type() == pyconv::util::language::types::variable::Type::DOUBLE);
     }
 
     SECTION("To string") {

@@ -2,18 +2,18 @@
 
 #include <string>
 
-#include "VariableType.hpp"
+#include "LineType.hpp"
 
 namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
-namespace variable {
+namespace line {
 
-class UnknownVariableType : public VariableType {
+class BlankLineType : public LineType {
 
 public:
-    UnknownVariableType();
+    BlankLineType();
 
 private:
 

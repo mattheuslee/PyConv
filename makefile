@@ -13,7 +13,10 @@ TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/types/variable/StringVariableTypeTest.cpp \
 ./src/PyConv/main/util/language/types/variable/StringVariableType.cpp \
 ./src/PyConv/test/util/language/types/variable/UnknownVariableTypeTest.cpp \
-./src/PyConv/main/util/language/types/variable/UnknownVariableType.cpp
+./src/PyConv/main/util/language/types/variable/UnknownVariableType.cpp \
+./src/PyConv/main/util/language/types/line/LineType.cpp \
+./src/PyConv/test/util/language/types/line/BlankLineTypeTest.cpp \
+./src/PyConv/main/util/language/types/line/BlankLineType.cpp
 
 PyConv: ./src/PyConv/main/PyConv.cpp
 	$(CC) -o PyConv $^ $(CFLAGS)

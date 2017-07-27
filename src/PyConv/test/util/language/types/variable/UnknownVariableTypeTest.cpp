@@ -8,7 +8,7 @@ TEST_CASE("Unknown Variable Type class") {
     UnknownVariableType unknownVariableType;
 
     SECTION("Var Type") {
-        CHECK(unknownVariableType.varType() == pyconv::util::language::types::variable::VarType::UNKNOWN);
+        CHECK(unknownVariableType.type() == pyconv::util::language::types::variable::Type::UNKNOWN);
     }
 
     SECTION("To string") {

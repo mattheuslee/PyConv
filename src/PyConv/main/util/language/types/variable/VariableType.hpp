@@ -8,7 +8,7 @@ namespace language {
 namespace types {
 namespace variable {
 
-enum VarType {
+enum Type {
     INT,
     DOUBLE,
     STRING,
@@ -18,14 +18,14 @@ enum VarType {
 class VariableType {
 
 public:
-    virtual VarType varType() = 0;
-
-    virtual std::string str() = 0;
+    Type type();
+    std::string str();
 
 private:
 
 protected:
-    VarType varType_;
+    Type type_;
+    std::string name_;
 
 };
 

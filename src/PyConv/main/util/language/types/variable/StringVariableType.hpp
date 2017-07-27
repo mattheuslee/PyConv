@@ -15,10 +15,6 @@ class StringVariableType : public VariableType {
 public:
     StringVariableType();
 
-    VarType varType();
-
-    std::string str();
-
 private:
 
 protected:

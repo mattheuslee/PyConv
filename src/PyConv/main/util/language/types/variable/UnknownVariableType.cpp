@@ -9,15 +9,8 @@ namespace types {
 namespace variable {
 
 UnknownVariableType::UnknownVariableType() {
-    varType_ = VarType::UNKNOWN;
-}
-
-VarType UnknownVariableType::varType() {
-    return varType_;
-}
-
-std::string UnknownVariableType::str() {
-    return "unknown";
+    type_ = Type::UNKNOWN;
+    name_ = "unknown";
 }
 
 }

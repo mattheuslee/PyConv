@@ -9,15 +9,8 @@ namespace types {
 namespace variable {
 
 DoubleVariableType::DoubleVariableType() {
-    varType_ = VarType::DOUBLE;
-}
-
-VarType DoubleVariableType::varType() {
-    return varType_;
-}
-
-std::string DoubleVariableType::str() {
-    return "double";
+    type_ = Type::DOUBLE;
+    name_ = "double";
 }
 
 }

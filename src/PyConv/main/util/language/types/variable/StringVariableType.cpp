@@ -9,15 +9,8 @@ namespace types {
 namespace variable {
 
 StringVariableType::StringVariableType() {
-    varType_ = VarType::STRING;
-}
-
-VarType StringVariableType::varType() {
-    return varType_;
-}
-
-std::string StringVariableType::str() {
-    return "string";
+    type_ = Type::STRING;
+    name_ = "string";
 }
 
 }

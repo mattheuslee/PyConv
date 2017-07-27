@@ -1,16 +1,16 @@
-#include "VariableType.hpp"
+#include "LineType.hpp"
 
 namespace pyconv {
 namespace util {
 namespace language {
 namespace types {
-namespace variable {
+namespace line {
 
-Type VariableType::type() {
+Type LineType::type() {
     return type_;
 }
 
-std::string VariableType::str() {
+std::string LineType::str() {
     return name_;
 }
 

@@ -15,10 +15,6 @@ class DoubleVariableType : public VariableType {
 public:
     DoubleVariableType();
 
-    VarType varType();
-
-    std::string str();
-
 private:
 
 protected:

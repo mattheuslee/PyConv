@@ -8,7 +8,7 @@ TEST_CASE("Int Variable Type class") {
     IntVariableType intVariableType;
 
     SECTION("Var Type") {
-        CHECK(intVariableType.varType() == pyconv::util::language::types::variable::VarType::INT);
+        CHECK(intVariableType.type() == pyconv::util::language::types::variable::Type::INT);
     }
 
     SECTION("To string") {
