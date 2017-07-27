@@ -9,6 +9,8 @@ MAIN_FILES = ./src/PyConv/main/PyConv.cpp \
 TEST_FILES = ./src/PyConv/test/MainTest.cpp \
 ./src/PyConv/test/util/language/python/ReservedWordsTest.cpp \
 ./src/PyConv/main/util/language/python/ReservedWords.cpp \
+./src/PyConv/test/util/language/types/TypeCheckTest.cpp \
+./src/PyConv/main/util/language/types/TypeCheck.cpp \
 ./src/PyConv/main/util/language/types/variable/VariableType.cpp \
 ./src/PyConv/test/util/language/types/variable/IntVariableTypeTest.cpp \
 ./src/PyConv/main/util/language/types/variable/IntVariableType.cpp \

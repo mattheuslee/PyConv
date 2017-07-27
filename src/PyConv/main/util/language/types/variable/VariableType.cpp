@@ -6,11 +6,11 @@ namespace language {
 namespace types {
 namespace variable {
 
-Type VariableType::type() {
+Type VariableType::type() const {
     return type_;
 }
 
-std::string VariableType::str() {
+std::string VariableType::str() const {
     return name_;
 }
 

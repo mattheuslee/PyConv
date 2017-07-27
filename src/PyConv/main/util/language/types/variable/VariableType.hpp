@@ -18,8 +18,8 @@ enum Type {
 class VariableType {
 
 public:
-    Type type();
-    std::string str();
+    Type type() const;
+    std::string str() const;
 
 private:
 

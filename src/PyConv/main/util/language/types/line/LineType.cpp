@@ -6,11 +6,11 @@ namespace language {
 namespace types {
 namespace line {
 
-Type LineType::type() {
+Type LineType::type() const {
     return type_;
 }
 
-std::string LineType::str() {
+std::string LineType::str() const {
     return name_;
 }
 

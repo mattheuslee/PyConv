@@ -26,8 +26,8 @@ enum Type {
 class LineType {
 
 public:
-    Type type();
-    std::string str();
+    Type type() const;
+    std::string str() const;
 
 private:
 
