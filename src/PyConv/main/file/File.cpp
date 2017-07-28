@@ -19,9 +19,14 @@ bool File::open(string filename) {
     filelines_.resize(0);
     string line;
     while (getline(file, line)) {
-        filelines_.push_back(line);
+        filelines_.push_back(StringUtil::trimTrailing(line));
     }
+    MLogger::logInfo("Successfully opened file: " + filename);
     return true;
+}
+
+vector<string> File::filelines() {
+    return filelines_;
 }
 
 }
