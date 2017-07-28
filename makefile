@@ -4,7 +4,7 @@ DEPS =
 OBJ = PyConv.o
 GCOV_FILES_LOCATION = gcov_folder
 
-MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp" -o -name "*.cc")
+MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp")
 
 TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
 

@@ -20,16 +20,16 @@ bool VariableMap::add(Variable variable) {
     }
 }
 
-pair<bool, Variable> VariableMap::find(string name) {
+pair<bool, Variable> VariableMap::find(string name) const {
     // Found
     if (internalMap_.find(name) != internalMap_.end()) {
-        return pair<bool, Variable>(true, internalMap_[name]);
+        return pair<bool, Variable>(true, (internalMap_.find(name))->second);
     } else {
         return pair<bool, Variable>(false, Variable());
     }
 }
 
-VariableType VariableMap::findType(string name) {
+VariableType VariableMap::findType(string name) const {
     return find(name).second.variableType();
 }
 

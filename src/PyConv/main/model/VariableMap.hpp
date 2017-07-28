@@ -20,8 +20,8 @@ class VariableMap {
 public:
     VariableMap();
     bool add(Variable variable);
-    pair<bool, Variable> find(string name);
-    VariableType findType(string name);
+    pair<bool, Variable> find(string name) const;
+    VariableType findType(string name) const;
 
 
 private:
