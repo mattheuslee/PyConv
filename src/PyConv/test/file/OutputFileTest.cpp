@@ -35,6 +35,7 @@ TEST_CASE("OutputFile class") {
         CHECK(outputFile.save("./src/PyConv/test/testfiles/outputTestFile.txt"));
         CHECK(inputFile.open("./src/PyConv/test/testfiles/outputTestFile.txt"));
         CHECK(inputFile.filelines() == expectedFilelines);
+        CHECK_FALSE(outputFile.save("nonexistingfolder/nonexistingfile.txt"));
     }
 
 }
