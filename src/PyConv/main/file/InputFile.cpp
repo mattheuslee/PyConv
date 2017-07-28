@@ -1,19 +1,15 @@
-#include "File.hpp"
+#include "InputFile.hpp"
 
 namespace pyconv {
 namespace file {
 
-using std::ifstream;
-using std::string;
-using std::vector;
+InputFile::InputFile() {}
 
-File::File() {}
-
-bool File::open(string filename) {
+bool InputFile::open(string filename) {
     ifstream file;
     file.open(filename);
     if (!file.is_open()) {
-        MLogger::logError("Unable to open file: " + filename);
+        MLogger::logError("Unable to open file for input: " + filename);
         return false;
     }
     filelines_.resize(0);
@@ -21,11 +17,11 @@ bool File::open(string filename) {
     while (getline(file, line)) {
         filelines_.push_back(StringUtil::trimTrailing(line));
     }
-    MLogger::logInfo("Successfully opened file: " + filename);
+    MLogger::logInfo("Successfully read input from: " + filename);
     return true;
 }
 
-vector<string> File::filelines() {
+vector<string> InputFile::filelines() {
     return filelines_;
 }
 

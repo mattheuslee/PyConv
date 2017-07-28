@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=c++11 -I./src/PyConv
+CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=gnu++11 -I./src/PyConv
 DEPS =
 OBJ = PyConv.o
 GCOV_FILES_LOCATION = gcov_folder
@@ -14,7 +14,8 @@ PyConv: $(MAIN_FILES)
 run: $(MAIN_FILES)
 	make clean
 	make PyConv
-	./Pyconv
+	./Pyconv cpp ./convert/1.py
+	make clean_gcov_files
 
 clean:
 	rm -f -r ./*.cpp ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt filenames.txt gcov_folder
@@ -25,6 +26,9 @@ clean_retain_coverage:
 	make clean
 	mv temp/* .
 	rm -r temp
+
+clean_gcov_files:
+	rm -f -r ./*.cpp ./*.gcda ./*.gcno ./*.gcov gcovlog.txt filenames.txt gcov_folder
 
 test: $(TEST_FILES)
 	$(CC) -o test $^ $(CFLAGS)

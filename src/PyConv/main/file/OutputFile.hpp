@@ -10,16 +10,17 @@
 namespace pyconv {
 namespace file {
 
+using std::ofstream;
 using std::string;
 using std::vector;
 using pyconv::util::StringUtil;
 
-class File {
+class OutputFile {
 
 public:
-    File();
-    bool open(string filename);
-    vector<string> filelines();
+    OutputFile();
+    void filelines(vector<string> filelines);
+    bool save(string filename);
 
 private:
     string filename_;

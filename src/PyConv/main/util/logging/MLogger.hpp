@@ -9,12 +9,15 @@
 #include <sstream>
 #include <vector>
 
+#include "termcolor.hpp"
+
 using std::ctime;
 using std::cout;
 using std::endl;
 using std::find;
 using std::make_shared;
 using std::ofstream;
+using std::ostream;
 using std::ostringstream;
 using std::shared_ptr;
 using std::string;
@@ -43,6 +46,8 @@ namespace mlogger {
 class MLogger {
 
 private:
+    typedef ostream& (*ColourChanger)(ostream &);
+
     bool toCout_;
     bool toFile_;
     string filename_;
@@ -100,14 +105,14 @@ public:
         return true;
     }
 
-    static void log(int level, string message) {
+    static void log(int level, string message, ColourChanger colourChanger = termcolor::reset) {
         if (find(instance()->levels_.begin(), instance()->levels_.end(), level) == instance()->levels_.end()) {
             return;
         }
         ostringstream output;
         output << getTime_() << " " << toString_(level) << " : " << message;
         if (instance()->toCout_) {
-            cout << output.str() << endl;
+            cout << colourChanger << output.str() << termcolor::reset << endl;
         }
         if (instance()->toFile_) {
             instance()->file_ << output.str() << endl;
@@ -115,27 +120,27 @@ public:
     }
 
     static void logTrace(string message) {
-        log(mlogger::trace, message);
+        log(mlogger::trace, message, termcolor::reset);
     }
 
     static void logDebug(string message) {
-        log(mlogger::debug, message);
+        log(mlogger::debug, message, termcolor::reset);
     }
 
     static void logInfo(string message) {
-        log(mlogger::info, message);
+        log(mlogger::info, message, termcolor::green);
     }
 
     static void logWarn(string message) {
-        log(mlogger::warn, message);
+        log(mlogger::warn, message, termcolor::yellow);
     }
 
     static void logError(string message) {
-        log(mlogger::error, message);
+        log(mlogger::error, message, termcolor::magenta);
     }
 
     static void logFatal(string message) {
-        log(mlogger::fatal, message);
+        log(mlogger::fatal, message, termcolor::red);
     }
 
 };
