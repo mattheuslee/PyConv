@@ -17,7 +17,6 @@ public:
 private:
 
 protected:
-    ReservedWords();
     static const std::vector<std::string> reservedWords_;
 
 };
