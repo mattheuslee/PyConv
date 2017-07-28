@@ -1,12 +1,12 @@
-#include "ReservedWords.hpp"
+#include "PythonReservedWords.hpp"
 
 #include <algorithm>
-#include <string>
 
 namespace pyconv {
 namespace util {
 namespace language {
-namespace python {
+namespace types {
+namespace word {
 
 const std::vector<std::string> ReservedWords::reservedWords_ {
     "and",
@@ -42,10 +42,7 @@ const std::vector<std::string> ReservedWords::reservedWords_ {
     "yield"
 };
 
-const bool ReservedWords::isReservedWord(std::string word) {
-    return std::find(reservedWords_.begin(), reservedWords_.end(), word) != reservedWords_.end();
 }
-
 }
 }
 }

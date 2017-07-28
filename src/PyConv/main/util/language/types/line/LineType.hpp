@@ -1,40 +1,22 @@
 #pragma once
 
-#include <string>
-
 namespace pyconv {
-namespace util {
+namespace util{
 namespace language {
-namespace types {
+namespace types{
 namespace line {
 
-enum Type {
+enum LineType {
     BLANK,
+    ELIF_STATEMENT,
+    ELSE_IF_STATEMENT,
+    ELSE_STATEMENT,
+    FOR_LOOP,
+    IF_STATEMENT,
+    PRINT_STATEMENT,
+    UNKNOWN,
     VARIABLE_ASSIGNMENT,
     VARIABLE_DECLARATION,
-    PRINT_STATEMENT,
-    IF_STATEMENT,
-    ELSE_STATEMENT,
-    ELSE_IF_STATEMENT,
-    ELIF_STATEMENT,
-    FOR_LOOP,
-    WHILE_LOOP,
-    DO_WHILE_LOOP,
-    UNKNOWN
-};
-
-class LineType {
-
-public:
-    Type type() const;
-    std::string str() const;
-
-private:
-
-protected:
-    std::string name_;
-    Type type_;
-
 };
 
 }

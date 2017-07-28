@@ -1,9 +1,9 @@
 #include "test/catch.hpp"
 
-#include "main/util/language/python/ReservedWords.hpp"
+#include "main/util/language/types/word/ReservedWords.hpp"
 
 TEST_CASE("Python reserved words identified") {
-    using pyconv::util::language::python::ReservedWords;
+    using pyconv::util::language::types::word::ReservedWords;
 
     SECTION("Known reserved words") {
         CHECK(ReservedWords::isReservedWord("and"));

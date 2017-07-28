@@ -1,32 +1,16 @@
 #pragma once
 
-#include <string>
-
 namespace pyconv {
-namespace util {
+namespace util{
 namespace language {
-namespace types {
+namespace types{
 namespace variable {
 
-enum Type {
+enum VariableType {
     DOUBLE,
     INT,
     STRING,
     UNKNOWN
-};
-
-class VariableType {
-
-public:
-    Type type() const;
-    std::string str() const;
-
-private:
-
-protected:
-    Type type_;
-    std::string name_;
-
 };
 
 }
