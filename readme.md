@@ -7,4 +7,3 @@ __PyConv is an application that converts Python code to other languages.__
 Utilises:
 
 * [Catch](https://github.com/philsquared/Catch) for unit testing
-* [easylogging++](https://github.com/muflihun/easyloggingpp) for logging
