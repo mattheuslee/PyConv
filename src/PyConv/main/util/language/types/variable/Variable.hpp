@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <string>
 
 #include "VariableType.hpp"
@@ -29,6 +30,13 @@ protected:
     pyconv::util::language::LanguageType languageType_;
     VariableType variableType_;
 
+};
+
+struct VariableHash {
+    size_t operator()(Variable variable) {
+        std::hash<std::string> nameHash;
+        return nameHash(variable.name());
+    }
 };
 
 }
