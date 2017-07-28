@@ -24,6 +24,7 @@ TEST_CASE("VariableMapTest class") {
     SECTION("Find") {
         Variable variable;
         variable.name("test");
+        CHECK_FALSE(variableMap.find(variable.name()).first);
         CHECK(variableMap.add(variable));
         CHECK(variableMap.find(variable.name()).first);
         CHECK(variableMap.find(variable.name()).second.name() == variable.name());

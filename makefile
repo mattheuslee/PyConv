@@ -17,7 +17,7 @@ run: $(MAIN_FILES)
 	./Pyconv
 
 clean:
-	rm -f -r ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt filenames.txt gcov_folder
+	rm -f -r ./*.cpp ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt filenames.txt gcov_folder
 
 clean_retain_coverage:
 	mkdir temp
@@ -38,8 +38,7 @@ coverage: $(TEST_FILES) $(FILES_UNDER_TEST)
 	find ./src/PyConv/main -not -name "PyConv.cpp" -and -name "*.cpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
 	cp *.gcno $(GCOV_FILES_LOCATION)
 	cp *.gcda $(GCOV_FILES_LOCATION)
-	cp gcov_loop.sh $(GCOV_FILES_LOCATION)
 	find ./$(GCOV_FILES_LOCATION) -name "*.cpp" -exec basename {} > ./$(GCOV_FILES_LOCATION)/filenames.txt \;
+	cp ./$(GCOV_FILES_LOCATION)/*.* .
 	sh ./gcov_loop.sh
-	cp ./$(GCOV_FILES_LOCATION)/*.cpp.gcov .
 	make clean_retain_coverage
