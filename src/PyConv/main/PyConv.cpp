@@ -9,6 +9,9 @@ int main(int argc, char* argv[]) {
     using std::string;
     using std::vector;
 
+    el::Configurations conf("easylogging.conf");
+    el::Loggers::reconfigureAllLoggers(conf);
+
     vector<string> args;
     for (int i = 0; i < argc; ++i) {
         args.emplace_back(argv[i]);
