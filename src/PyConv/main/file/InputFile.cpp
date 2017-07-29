@@ -5,12 +5,12 @@ namespace file {
 
 InputFile::InputFile() {}
 
-bool InputFile::open(string filename) {
+void InputFile::open(string filename) {
     ifstream file;
     file.open(filename);
     if (!file.is_open()) {
         MLogger::logError("Unable to open file for input: " + filename);
-        return false;
+        throw FileOpenException("Unable to open file for input: " + filename);
     }
     filelines_.resize(0);
     string line;
@@ -18,7 +18,6 @@ bool InputFile::open(string filename) {
         filelines_.push_back(StringUtil::trimTrailing(line));
     }
     MLogger::logInfo("Successfully read input from: " + filename);
-    return true;
 }
 
 vector<string> InputFile::filelines() {

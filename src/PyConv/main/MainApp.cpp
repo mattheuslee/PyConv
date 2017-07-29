@@ -15,22 +15,30 @@ void MainApp::run() {
 
 void MainApp::openAndConvert_(string filename) {
     Converter converter(languageType_);
-    if (inputFile_.open(filename) && converter.convert(inputFile_.filelines())) {
+    try {
+        inputFile_.open(filename);
+    } catch (FileOpenException e) {
+        MLogger::logWarn("Unable to open " + filename + ", skipping conversion");
+        return;
+    }
+    if (converter.convert(inputFile_.filelines())) {
         MLogger::logInfo("Converted " + filename + " successfully");
+    } else {
+        MLogger::logWarn("Unable to convert " + filename);
     }
 }
 
 void MainApp::checkArgsValid_(vector<string> const & args) {
     if (args.size() == 0) {
         MLogger::logFatal("No arguments provided");
-        throw invalid_argument("No arguments provided");
+        throw InvalidArgumentException("No arguments provided");
     } else if (args.size() == 1) {
-        MLogger::logFatal("Only one argument provided: minimum of two arguments required");
-        throw invalid_argument("Only one argument provided");
+        MLogger::logFatal("Only one argument provided");
+        throw InvalidArgumentException("Only one argument provided");
     } else {
         if (!isLanguageType_(args[0])) {
             MLogger::logFatal("Invalid language type: " + args[0]);
-            throw invalid_argument("Invalid language type: " + args[0]);
+            throw InvalidArgumentException("Invalid language type: " + args[0]);
         }
     }
 }

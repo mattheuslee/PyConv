@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "main/exception/FileOpenException.hpp"
 #include "main/file/InputFile.hpp"
 #include "main/file/OutputFile.hpp"
 
@@ -10,6 +11,7 @@ using std::string;
 using std::vector;
 
 TEST_CASE("OutputFile class") {
+    using pyconv::exception::FileOpenException;
     using pyconv::file::InputFile;
     using pyconv::file::OutputFile;
 
@@ -32,10 +34,10 @@ TEST_CASE("OutputFile class") {
             "    line5"
         };
         outputFile.filelines(filelines);
-        CHECK(outputFile.save("./src/PyConv/test/testfiles/outputTestFile.txt"));
-        CHECK(inputFile.open("./src/PyConv/test/testfiles/outputTestFile.txt"));
+        CHECK_NOTHROW(outputFile.save("./src/PyConv/test/testfiles/outputTestFile.txt"));
+        CHECK_NOTHROW(inputFile.open("./src/PyConv/test/testfiles/outputTestFile.txt"));
         CHECK(inputFile.filelines() == expectedFilelines);
-        CHECK_FALSE(outputFile.save("nonexistingfolder/nonexistingfile.txt"));
+        CHECK_THROWS_AS(outputFile.save("nonexistingfolder/nonexistingfile.txt"), FileOpenException);
     }
 
 }

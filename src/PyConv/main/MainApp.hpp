@@ -1,20 +1,22 @@
 #pragma once
 
-#include <stdexcept>
 #include <string>
 #include <vector>
 
 #include "main/converter/Converter.hpp"
+#include "main/exception/FileOpenException.hpp"
+#include "main/exception/InvalidArgumentException.hpp"
 #include "main/file/InputFile.hpp"
 #include "main/util/language/LanguageType.hpp"
 #include "main/util/logging/MLogger.hpp"
 
 namespace pyconv {
 
-using std::invalid_argument;
 using std::string;
 using std::vector;
 using pyconv::converter::Converter;
+using pyconv::exception::FileOpenException;
+using pyconv::exception::InvalidArgumentException;
 using pyconv::file::InputFile;
 using pyconv::util::language::IsLanguageType;
 using pyconv::util::language::LanguageType;

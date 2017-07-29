@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "main/exception/FileOpenException.hpp"
 #include "main/file/InputFile.hpp"
 #include "main/util/logging/MLogger.hpp"
 
@@ -10,17 +11,18 @@ using std::string;
 using std::vector;
 
 TEST_CASE("InputFile class") {
+    using pyconv::exception::FileOpenException;
     using pyconv::file::InputFile;
 
     InputFile inputFile;
 
     SECTION("Open") {
-        CHECK_FALSE(inputFile.open("nonexistingfolder/nonexistingfile.txt"));
-        CHECK(inputFile.open("./src/PyConv/test/testfiles/inputTestFile.txt"));
+        CHECK_THROWS_AS(inputFile.open("nonexistingfolder/nonexistingfile.txt"), FileOpenException);
+        CHECK_NOTHROW(inputFile.open("./src/PyConv/test/testfiles/inputTestFile.txt"));
     }
 
     SECTION("File Lines") {
-        REQUIRE(inputFile.open("./src/PyConv/test/testfiles/inputTestFile.txt"));
+        REQUIRE_NOTHROW(inputFile.open("./src/PyConv/test/testfiles/inputTestFile.txt"));
         vector<string> expectedFilelines {
             "",
             "line2",
