@@ -3,18 +3,12 @@
 namespace pyconv {
 namespace converter {
 
-Converter::Converter(int languageType) {
+Converter::Converter(language_t languageType) {
     languageType_ = languageType;
 }
 
 bool Converter::convert(vector<string> filelines) {
-    vector<Line> originalLines;
-    for (string line : filelines) {
-        PythonLine pythonLine;
-        pythonLine.line(line);
-        //pythonLine = LineType::getLineType<LanguageType::PYTHON>(pythonLine);
-        //originalLines.push_back(pythonLine);
-    }
+    vector<PythonLine> originalLines = Parser<LanguageType::PYTHON>::process(filelines);
 
     switch (languageType_) {
     case LanguageType::PYTHON:

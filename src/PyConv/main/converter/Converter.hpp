@@ -7,6 +7,7 @@
 #include "main/language/LanguageType.hpp"
 #include "main/language/types/line/Line.hpp"
 #include "main/language/types/line/PythonLine.hpp"
+#include "main/parser/Parser.hpp"
 
 namespace pyconv {
 namespace converter {
@@ -17,16 +18,19 @@ using pyconv::language::LanguageType;
 using pyconv::language::types::line::Line;
 using pyconv::language::types::line::LineType;
 using pyconv::language::types::line::PythonLine;
+using pyconv::parser::Parser;
+
+using language_t = LanguageType::language_t;
 
 class Converter {
 
 public:
-    explicit Converter(int languageType);
+    explicit Converter(language_t languageType);
 
     bool convert(vector<string> filelines);
 
 private:
-    int languageType_;
+    language_t languageType_;
 
 protected:
 

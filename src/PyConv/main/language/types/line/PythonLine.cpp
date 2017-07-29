@@ -7,7 +7,7 @@ namespace language {
 namespace types {
 namespace line {
 
-PythonLine::PythonLine() {
+PythonLine::PythonLine() : Line() {
     languageType_ = LanguageType::PYTHON;
     lineType_ = LineType::UNKNOWN;
 }

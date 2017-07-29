@@ -45,4 +45,21 @@ TEST_CASE("PythonLine class") {
         pythonLine.lineType(LineType::VARIABLE_DECLARATION);
         CHECK(pythonLine.lineType() == LineType::VARIABLE_DECLARATION);
     }
+
+    SECTION("Num Whitespace") {
+        CHECK(pythonLine.numWhitespace() == 0);
+        pythonLine.numWhitespace(1);
+        CHECK(pythonLine.numWhitespace() == 1);
+        pythonLine.numWhitespace(2);
+        CHECK(pythonLine.numWhitespace() == 2);
+    }
+
+    SECTION("Indentation Level") {
+        CHECK(pythonLine.indentationLevel() == 0);
+        pythonLine.indentationLevel(1);
+        CHECK(pythonLine.indentationLevel() == 1);
+        pythonLine.indentationLevel(2);
+        CHECK(pythonLine.indentationLevel() == 2);
+    }
+
 }
