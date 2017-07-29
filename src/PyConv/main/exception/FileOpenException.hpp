@@ -18,7 +18,7 @@ public:
         message_ = message;
     }
 
-    string message() {
+    string message() const {
         return message_;
     }
 
