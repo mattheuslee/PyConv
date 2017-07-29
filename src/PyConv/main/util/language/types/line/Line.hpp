@@ -11,13 +11,16 @@ namespace language {
 namespace types {
 namespace line {
 
+using language_t = pyconv::util::language::LanguageType::language_t;
+using pyconv::util::language::LanguageType;
+
 class Line {
 
 public:
     Line& line(std::string line);
     std::string line();
 
-    pyconv::util::language::LanguageType languageType();
+    language_t languageType();
 
     Line& lineType(LineType lineType);
     LineType lineType();
@@ -26,7 +29,7 @@ private:
 
 protected:
     std::string line_;
-    pyconv::util::language::LanguageType languageType_;
+    language_t languageType_;
     LineType lineType_;
 
 };

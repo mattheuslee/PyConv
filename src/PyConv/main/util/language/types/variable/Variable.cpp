@@ -17,7 +17,7 @@ std::string Variable::name() {
     return name_;
 }
 
-pyconv::util::language::LanguageType Variable::languageType() {
+pyconv::util::language::LanguageType::language_t Variable::languageType() {
     return languageType_;
 }
 

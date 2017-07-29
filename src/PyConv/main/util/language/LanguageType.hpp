@@ -2,33 +2,36 @@
 
 #include <string>
 
+#include <main/util/StringUtil.hpp>
+
 namespace pyconv {
 namespace util {
 namespace language {
 
 using std::string;
+using pyconv::util::StringUtil;
 
-enum LanguageType {
-    PYTHON,
-    CPP,
-    UNKNOWN
-};
+class LanguageType {
 
-struct IsLanguageType {
-    bool operator()(string language) {
-        return language == "python" || language == "cpp";
-    }
-};
+public:
+    typedef int language_t;
 
-struct ToLanguageType {
-    LanguageType operator()(string language) {
-        if (language == "python") {
-            return LanguageType::PYTHON;
-        } else if (language == "cpp") {
-            return LanguageType::CPP;
-        }
-        return LanguageType::UNKNOWN;
-    }
+    static const int PYTHON = 0;
+    static const int CPP = 1;
+    static const int UNKNOWN = -1;
+
+    static bool isValidLanguageType(int const & language);
+
+    static bool isValidLanguageType(string const & language);
+
+    static int stringToLanguageType(string const & language);
+
+    static string languageTypeToString(int const & language);
+
+private:
+
+protected:
+
 };
 
 }

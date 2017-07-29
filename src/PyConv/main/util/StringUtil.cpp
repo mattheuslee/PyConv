@@ -23,5 +23,17 @@ string StringUtil::trimTrailing(string const & s) {
     return string(s.begin(), rit.base());
 }
 
+string StringUtil::toLowerCase(string const & s) {
+    string result = s;
+    transform(s.begin(), s.end(), result.begin(), ::tolower);
+    return result;
+}
+
+string StringUtil::toUpperCase(string const & s) {
+    string result = s;
+    transform(s.begin(), s.end(), result.begin(), ::toupper);
+    return result;
+}
+
 }
 }

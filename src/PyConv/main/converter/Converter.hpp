@@ -16,12 +16,12 @@ using pyconv::util::language::LanguageType;
 class Converter {
 
 public:
-    Converter(LanguageType languageType);
+    Converter(int languageType);
 
     bool convert(vector<string> filelines);
 
 private:
-    LanguageType languageType_;
+    int languageType_;
 
 protected:
 

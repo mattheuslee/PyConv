@@ -17,7 +17,7 @@ std::string Line::line() {
     return line_;
 }
 
-pyconv::util::language::LanguageType Line::languageType() {
+language_t Line::languageType() {
     return languageType_;
 }
 

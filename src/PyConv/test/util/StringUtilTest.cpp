@@ -16,4 +16,12 @@ TEST_CASE("StringUtil class") {
     SECTION("Trim Trailing") {
         CHECK(StringUtil::trimTrailing("  test  ") == "  test");
     }
+
+    SECTION("To Lower Case") {
+        CHECK(StringUtil::toLowerCase("TEST") == "test");
+    }
+
+    SECTION("To Upper Case") {
+        CHECK(StringUtil::toUpperCase("test") == "TEST");
+    }
 }

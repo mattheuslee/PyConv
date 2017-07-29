@@ -22,7 +22,7 @@ void MainApp::openAndConvert_(string filename) {
         return;
     }
     if (converter.convert(inputFile_.filelines())) {
-        MLogger::logInfo("Converted " + filename + " successfully");
+        MLogger::logInfo("Converted " + filename + " successfully to " + LanguageType::languageTypeToString(languageType_));
     } else {
         MLogger::logWarn("Unable to convert " + filename);
     }
@@ -35,14 +35,14 @@ void MainApp::checkArgsValid_(vector<string> const & args) {
     } else if (args.size() == 1) {
         MLogger::logFatal("Only one argument provided");
         throw InvalidArgumentException("Only one argument provided");
-    } else if (!isLanguageType_(args[0])) {
+    } else if (!LanguageType::isValidLanguageType(args[0])) {
         MLogger::logFatal("Invalid language type: " + args[0]);
         throw InvalidArgumentException("Invalid language type: " + args[0]);
     }
 }
 
 void MainApp::extractArgs_(vector<string> args) {
-    languageType_ = toLanguageType_(args[0]);
+    languageType_ = LanguageType::stringToLanguageType(args[0]);
     MLogger::logInfo("Language type selected: " + args[0]);
     args.erase(args.begin());
     filesToConvert_ = args;

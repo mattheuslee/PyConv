@@ -18,7 +18,7 @@ public:
     Variable& name(std::string name);
     std::string name();
 
-    pyconv::util::language::LanguageType languageType();
+    pyconv::util::language::LanguageType::language_t languageType();
 
     Variable& variableType(VariableType variableType);
     VariableType variableType();
@@ -27,7 +27,7 @@ private:
 
 protected:
     std::string name_;
-    pyconv::util::language::LanguageType languageType_;
+    pyconv::util::language::LanguageType::language_t languageType_;
     VariableType variableType_;
 
 };

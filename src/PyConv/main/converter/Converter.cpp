@@ -3,7 +3,7 @@
 namespace pyconv {
 namespace converter {
 
-Converter::Converter(LanguageType languageType) {
+Converter::Converter(int languageType) {
     languageType_ = languageType;
 }
 

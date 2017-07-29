@@ -18,9 +18,7 @@ using pyconv::converter::Converter;
 using pyconv::exception::FileOpenException;
 using pyconv::exception::InvalidArgumentException;
 using pyconv::file::InputFile;
-using pyconv::util::language::IsLanguageType;
 using pyconv::util::language::LanguageType;
-using pyconv::util::language::ToLanguageType;
 
 class MainApp {
 
@@ -30,11 +28,8 @@ public:
     void run();
 
 private:
-    LanguageType languageType_;
+    int languageType_;
     vector<string> filesToConvert_;
-
-    IsLanguageType isLanguageType_;
-    ToLanguageType toLanguageType_;
 
     InputFile inputFile_;
 

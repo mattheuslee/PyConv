@@ -9,7 +9,7 @@ namespace types {
 namespace line {
 
 PythonLine::PythonLine() {
-    languageType_ = pyconv::util::language::LanguageType::PYTHON;
+    languageType_ = LanguageType::PYTHON;
     lineType_ = LineType::UNKNOWN;
 }
 
