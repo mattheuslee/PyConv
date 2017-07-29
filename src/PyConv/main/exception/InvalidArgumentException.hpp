@@ -14,7 +14,7 @@ private:
     string message_;
 
 public:
-    InvalidArgumentException(string message) {
+    explicit InvalidArgumentException(string message) {
         message_ = message;
     }
 

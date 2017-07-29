@@ -3,14 +3,15 @@
 #include <utility>
 
 #include "main/model/VariableMap.hpp"
-#include "main/util/language/types/variable/Variable.hpp"
-#include "main/util/language/types/variable/VariableType.hpp"
+#include "main/language/types/variable/Variable.hpp"
+#include "main/language/types/variable/VariableType.hpp"
 
 TEST_CASE("VariableMapTest class") {
-    using pyconv::util::language::types::variable::Variable;
-    using pyconv::util::language::types::variable::VariableType;
+    using pyconv::model::VariableMap;
+    using pyconv::language::types::variable::Variable;
+    using pyconv::language::types::variable::VariableType;
 
-    pyconv::model::VariableMap variableMap;
+    VariableMap variableMap;
 
     SECTION("Add") {
         Variable variable;

@@ -14,7 +14,7 @@ private:
     string message_;
 
 public:
-    FileOpenException(string message) {
+    explicit FileOpenException(string message) {
         message_ = message;
     }
 

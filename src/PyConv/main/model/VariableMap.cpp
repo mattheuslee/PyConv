@@ -3,11 +3,6 @@
 namespace pyconv {
 namespace model {
 
-using std::pair;
-using std::string;
-using pyconv::util::language::types::variable::Variable;
-using pyconv::util::language::types::variable::VariableType;
-
 VariableMap::VariableMap() {}
 
 bool VariableMap::add(Variable variable) {
@@ -29,7 +24,7 @@ pair<bool, Variable> VariableMap::find(string name) const {
     }
 }
 
-VariableType VariableMap::findType(string name) const {
+variable_t VariableMap::findType(string name) const {
     return find(name).second.variableType();
 }
 
