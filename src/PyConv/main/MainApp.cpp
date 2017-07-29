@@ -17,7 +17,7 @@ void MainApp::openAndConvert_(string filename) {
     Converter converter(languageType_);
     try {
         inputFile_.open(filename);
-    } catch (FileOpenException e) {
+    } catch (FileOpenException const & e) {
         MLogger::logWarn("Unable to open " + filename + ", skipping conversion");
         return;
     }
@@ -35,11 +35,9 @@ void MainApp::checkArgsValid_(vector<string> const & args) {
     } else if (args.size() == 1) {
         MLogger::logFatal("Only one argument provided");
         throw InvalidArgumentException("Only one argument provided");
-    } else {
-        if (!isLanguageType_(args[0])) {
-            MLogger::logFatal("Invalid language type: " + args[0]);
-            throw InvalidArgumentException("Invalid language type: " + args[0]);
-        }
+    } else if (!isLanguageType_(args[0])) {
+        MLogger::logFatal("Invalid language type: " + args[0]);
+        throw InvalidArgumentException("Invalid language type: " + args[0]);
     }
 }
 
