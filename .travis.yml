@@ -1,6 +1,5 @@
 language: cpp
 compiler: gcc
-dist: precise
 
 before_install:
  - pip install --user cpp-coveralls
