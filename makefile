@@ -43,11 +43,11 @@ coverage: $(TEST_FILES)
 	make clean
 	$(CC) -o test $^ $(COV_CFLAGS)
 	./test
-	-mkdir $(GCOV_FILES_LOCATION)
+#	-mkdir $(GCOV_FILES_LOCATION)
 #gather all .hpp files to be analysed
-	find ./src/PyConv/main -name "*.hpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
-	-cp *.gcno $(GCOV_FILES_LOCATION)
-	-cp *.gcda $(GCOV_FILES_LOCATION)
+#	find ./src/PyConv/main -name "*.hpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
+#	-cp *.gcno $(GCOV_FILES_LOCATION)
+#	-cp *.gcda $(GCOV_FILES_LOCATION)
 
 temp2:
 	-mkdir $(GCOV_FILES_LOCATION)
