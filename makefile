@@ -1,7 +1,6 @@
 CC = g++
-COV_CFLAGS = -Wall -std=gnu++11 -I./src/PyConv -O0 -fno-inline -fno-inline-small-functions -fno-default-inline --coverage
+COV_CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=gnu++11 -I./src/PyConv -O0 -fno-inline -fno-inline-small-functions -fno-default-inline
 NON_COV_CFLAGS = -Wall -std=gnu++11 -I./src/PyConv
-OBJ = PyConv.o
 GCOV_FILES_LOCATION = gcov_folder
 
 MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp")
@@ -44,15 +43,14 @@ coverage: $(TEST_FILES)
 	make clean
 	$(CC) -o test $^ $(COV_CFLAGS)
 	./test
-	make clean_retain_coverage
-
-temp2:
 	-mkdir $(GCOV_FILES_LOCATION)
 #gather all .hpp files to be analysed
 	find ./src/PyConv/main -name "*.hpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
-	cp *.gcno $(GCOV_FILES_LOCATION)
-	cp *.gcda $(GCOV_FILES_LOCATION)
-#put all .hpp filenames into filenames.txt
+	-cp *.gcno $(GCOV_FILES_LOCATION)
+	-cp *.gcda $(GCOV_FILES_LOCATION)
+
+temp2:
+	-mkdir $(GCOV_FILES_LOCATION)
 	find ./$(GCOV_FILES_LOCATION) -name "*.hpp" -and -not -name "catch.hpp" -exec basename {} > ./$(GCOV_FILES_LOCATION)/filenames.txt \;
 	make clean_retain_coverage
 
