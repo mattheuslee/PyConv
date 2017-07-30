@@ -40,6 +40,9 @@ TEST_CASE("MainApp class") {
         vector<string> args {"cpp", "./src/PyConv/test/testfiles/properFile.py"};
         MainApp mainApp(args);
         CHECK_NOTHROW(mainApp.run());
+        args[1] = "nonexistingfolder/nonexistingfile.py";
+        mainApp = MainApp(args);
+        CHECK_NOTHROW(mainApp.run());
         args[0] = "python";
         mainApp = MainApp(args);
         CHECK_NOTHROW(mainApp.run());
