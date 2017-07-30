@@ -45,34 +45,9 @@ namespace mlogger {
 
 class MLogger {
 
-private:
+public:
     typedef ostream& (*ColourChanger)(ostream &);
 
-    bool toCout_;
-    bool toFile_;
-    string filename_;
-    vector<int> levels_;
-    ofstream file_;
-
-    static string getTime_() {
-        time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        string currentTimeStr = ctime(&currentTime);
-        return currentTimeStr.erase(currentTimeStr.size() - 1); // Remove newline character
-    }
-
-    static string toString_(int level) {
-        return mlogger::LEVEL_STRINGS[level];
-    }
-
-    static shared_ptr<MLogger> instance() {
-        static shared_ptr<MLogger> instance_;
-        if (!instance_) {
-            instance_ = make_shared<MLogger>();
-        }
-        return instance_;
-    }
-
-public:
     static void toCout(bool toCout) {
         instance()->toCout_ = toCout;
     }
@@ -92,6 +67,10 @@ public:
 
     static void clearLevels() {
         instance()->levels_.resize(0);
+    }
+
+    static string lastMessage() {
+        return instance()->lastMessage_;
     }
 
     static bool init() {
@@ -117,6 +96,7 @@ public:
         if (instance()->toFile_) {
             instance()->file_ << output.str() << endl;
         }
+        instance()->lastMessage_ = message;
     }
 
     static void logTrace(string message) {
@@ -142,5 +122,34 @@ public:
     static void logFatal(string message) {
         log(mlogger::fatal, message, termcolor::red);
     }
+
+private:
+    bool toCout_;
+    bool toFile_;
+    string filename_;
+    vector<int> levels_;
+    ofstream file_;
+
+    string lastMessage_;
+
+    static string getTime_() {
+        time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        string currentTimeStr = ctime(&currentTime);
+        return currentTimeStr.erase(currentTimeStr.size() - 1); // Remove newline character
+    }
+
+    static string toString_(int level) {
+        return mlogger::LEVEL_STRINGS[level];
+    }
+
+    static shared_ptr<MLogger> const & instance() {
+        static shared_ptr<MLogger> instance_;
+        if (!instance_) {
+            instance_ = make_shared<MLogger>();
+        }
+        return instance_;
+    }
+
+protected:
 
 };
