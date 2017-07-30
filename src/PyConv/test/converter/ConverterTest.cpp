@@ -1,3 +1,12 @@
+#include "test/catch.hpp"
+
+#include <string>
+#include <vector>
+
+#include "main/converter/Converter.hpp"
+#include "main/exception/ConversionException.hpp"
+#include "main/language/LanguageType.hpp"
+
 TEST_CASE("ConverterTest class") {
     using std::string;
     using std::vector;

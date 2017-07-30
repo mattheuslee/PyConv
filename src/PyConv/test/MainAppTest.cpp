@@ -1,9 +1,18 @@
+#include "test/catch.hpp"
+
+#include <string>
+#include <vector>
+
+#include "main/exception/FileOpenException.hpp"
+#include "main/exception/InvalidArgumentException.hpp"
+#include "main/MainApp.hpp"
+
 TEST_CASE("MainApp class") {
     using std::string;
     using std::vector;
-    using pyconv::MainApp;
     using pyconv::exception::FileOpenException;
     using pyconv::exception::InvalidArgumentException;
+    using pyconv::MainApp;
 
     SECTION("Exceptions Thrown") {
         vector<string> args;

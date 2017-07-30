@@ -1,3 +1,7 @@
+#include "test/catch.hpp"
+
+#include "main/util/StringUtil.hpp"
+
 TEST_CASE("StringUtil class") {
     using pyconv::util::StringUtil;
 

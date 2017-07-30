@@ -1,3 +1,11 @@
+#include "test/catch.hpp"
+
+#include <string>
+#include <vector>
+#include "main/exception/FileOpenException.hpp"
+#include "main/file/InputFile.hpp"
+#include "main/file/OutputFile.hpp"
+
 TEST_CASE("OutputFile class") {
     using std::string;
     using std::vector;
