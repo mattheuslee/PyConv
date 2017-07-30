@@ -6,6 +6,7 @@
 #include "main/converter/Converter.hpp"
 #include "main/exception/ConversionException.hpp"
 #include "main/language/LanguageType.hpp"
+#include "test/TestUtil.hpp"
 
 TEST_CASE("ConverterTest class") {
     using std::string;
@@ -13,17 +14,12 @@ TEST_CASE("ConverterTest class") {
     using pyconv::converter::Converter;
     using pyconv::exception::ConversionException;
     using pyconv::language::LanguageType;
+    using pyconv::TestUtil;
 
     SECTION("Convert") {
         Converter converter(LanguageType::PYTHON);
-        vector<string> lines {
-            "i = 5",
-            "if i == 5:",
-            "    print \"5!\"",
-            "else:",
-            "    print \"not 5!\"",
-            ""
-        };
+        vector<string> lines = TestUtil::getSamplePythonLineStrings();
+
         CHECK_THROWS_AS(converter.convert(lines), ConversionException); // Converting from python to python
 
         converter = Converter(LanguageType::UNKNOWN);

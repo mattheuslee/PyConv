@@ -9,6 +9,8 @@
 #include "main/language/types/line/Line.hpp"
 #include "main/language/types/line/LineType.hpp"
 #include "main/language/types/line/LineUtil.hpp"
+#include "main/language/types/variable/Variable.hpp"
+#include "main/language/types/variable/VariableMap.hpp"
 #include "main/util/StringUtil.hpp"
 #include "main/util/logging/MLogger.hpp"
 
@@ -23,6 +25,8 @@ using pyconv::language::LanguageType;
 using pyconv::language::types::line::Line;
 using pyconv::language::types::line::LineType;
 using pyconv::language::types::line::LineUtil;
+using pyconv::language::types::variable::Variable;
+using pyconv::language::types::variable::VariableMap;
 using pyconv::util::StringUtil;
 
 using language_t = LanguageType::language_t;
@@ -74,12 +78,30 @@ private:
         }
     }
 
+    static void processVariableDeclarationAndAssigment_(vector<Line<LanguageType::PYTHON>> & lines) {
+        VariableMap variableMap;
+
+        for (Line<LanguageType::PYTHON> & line : lines) {
+            if (line.lineType() == LineType::VARIABLE) {
+                Variable<LanguageType::PYTHON> variable;
+                string variableName = StringUtil::extractFirstWord(line.line());
+                if (!variableMap.find(variableName).first) {
+                    line.lineType(LineType::VARIABLE_DECLARATION);
+                    variableMap.add(variable.name(variableName));
+                } else {
+                    line.lineType(LineType::VARIABLE_ASSIGNMENT);
+                }
+            }
+        }
+    }
+
 protected:
 
 public:
     static vector<Line<LanguageType::PYTHON>> process(vector<string> lines) {
         vector<Line<LanguageType::PYTHON>> processedLines = initialConstruct_(lines);
         processIndentationLevels_(processedLines);
+        processVariableDeclarationAndAssigment_(processedLines);
         printInfo(processedLines);
         return processedLines;
     }

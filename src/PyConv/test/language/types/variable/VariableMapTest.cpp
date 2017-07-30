@@ -1,12 +1,12 @@
 #include "test/catch.hpp"
 
 #include "main/language/types/variable/VariableBase.hpp"
+#include "main/language/types/variable/VariableMap.hpp"
 #include "main/language/types/variable/VariableType.hpp"
-#include "main/model/VariableMap.hpp"
 
 TEST_CASE("VariableMapTest class") {
-    using pyconv::model::VariableMap;
     using pyconv::language::types::variable::VariableBase;
+    using pyconv::language::types::variable::VariableMap;
     using pyconv::language::types::variable::VariableType;
 
     VariableMap variableMap;

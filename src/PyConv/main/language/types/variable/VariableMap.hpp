@@ -7,7 +7,9 @@
 #include "main/language/types/variable/VariableType.hpp"
 
 namespace pyconv {
-namespace model {
+namespace language {
+namespace types {
+namespace variable {
 
 using std::pair;
 using std::string;
@@ -52,5 +54,7 @@ public:
 
 };
 
+}
+}
 }
 }
