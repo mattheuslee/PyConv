@@ -18,28 +18,19 @@ TEST_CASE("MainApp class") {
         vector<string> args;
         try {
             MainApp mainApp(args);
-            mainApp.run();
         } catch (InvalidArgumentException const & e) {
             CHECK(e.message() == "No arguments provided");
         }
         args.push_back("cpp");
         try {
             MainApp mainApp(args);
-            mainApp.run();
         } catch (InvalidArgumentException const & e) {
             CHECK(e.message() == "Only one argument provided");
         }
+        args[0] = "java";
         args.push_back("nonexistingfolder/nonexistingfile.py");
         try {
             MainApp mainApp(args);
-            mainApp.run();
-        } catch (InvalidArgumentException const & e) {
-            CHECK(false); // No exception expected for 2 argument
-        }
-        args[0] = "java";
-        try {
-            MainApp mainApp(args);
-            mainApp.run();
         } catch (InvalidArgumentException const & e) {
             CHECK(e.message() == "Invalid language type: java");
         }

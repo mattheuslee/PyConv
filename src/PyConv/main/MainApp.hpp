@@ -60,14 +60,10 @@ private:
     }
 
     vector<LineBase> convertForType_(vector<string> const & filelines) {
-        switch (languageType_) {
-        case LanguageType::PYTHON:
+        if (languageType_ == LanguageType::PYTHON) {
             return Converter<LanguageType::PYTHON>::convert(filelines);
-        case LanguageType::CPP:
+        } else {
             return Converter<LanguageType::CPP>::convert(filelines);
-        case LanguageType::UNKNOWN:
-        default:
-            return Converter<LanguageType::UNKNOWN>::convert(filelines);
         }
     }
 
