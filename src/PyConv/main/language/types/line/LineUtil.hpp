@@ -21,16 +21,16 @@ using line_t = LineType::line_t;
 template <language_t L = LanguageType::PYTHON>
 class LineUtil {
 
-private:
-
-protected:
-
 public:
     static line_t lineType(string line) {
         string firstWord = StringUtil::extractFirstWord(line);
         firstWord = StringUtil::trimTrailingChar(firstWord, ':');
         return LineType::firstWordToLineType(firstWord);
     }
+
+private:
+
+protected:
 
 };
 

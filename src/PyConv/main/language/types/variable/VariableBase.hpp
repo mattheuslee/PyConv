@@ -19,13 +19,6 @@ using variable_t = pyconv::language::types::variable::VariableType::variable_t;
 
 class VariableBase {
 
-private:
-
-protected:
-    std::string name_;
-    language_t languageType_;
-    variable_t variableType_;
-
 public:
     VariableBase() : name_(""), languageType_(LanguageType::UNKNOWN), variableType_(VariableType::UNKNOWN) {}
 
@@ -50,6 +43,14 @@ public:
     variable_t variableType() {
         return variableType_;
     }
+
+private:
+
+protected:
+    std::string name_;
+    language_t languageType_;
+    variable_t variableType_;
+
 };
 
 }

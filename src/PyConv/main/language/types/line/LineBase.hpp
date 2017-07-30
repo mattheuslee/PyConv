@@ -19,16 +19,6 @@ using language_t = LanguageType::language_t;
 
 class LineBase {
 
-private:
-
-protected:
-    std::string line_;
-    language_t languageType_;
-    line_t lineType_;
-
-    int numWhitespace_;
-    int indentationLevel_;
-
 public:
     LineBase() : line_(""), languageType_(LanguageType::UNKNOWN), lineType_(LineType::UNKNOWN),
                  numWhitespace_(0), indentationLevel_(0) {}
@@ -72,6 +62,16 @@ public:
     int indentationLevel() const {
         return indentationLevel_;
     }
+
+private:
+
+protected:
+    std::string line_;
+    language_t languageType_;
+    line_t lineType_;
+
+    int numWhitespace_;
+    int indentationLevel_;
 
 };
 

@@ -17,28 +17,29 @@ using language_t = pyconv::language::LanguageType::language_t;
 template<language_t L = LanguageType::PYTHON>
 class Line : public LineBase {
 
-private:
-
-protected:
-
 public:
     Line() : LineBase() {
         languageType_ = LanguageType::PYTHON;
     }
+
+private:
+
+protected:
 
 };
 
 template<>
 class Line<LanguageType::CPP> : public LineBase {
 
-private:
-
-protected:
-
 public:
     Line() : LineBase() {
         languageType_ = LanguageType::CPP;
     }
+
+
+private:
+
+protected:
 
 };
 

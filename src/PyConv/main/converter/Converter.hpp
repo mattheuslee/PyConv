@@ -25,43 +25,53 @@ using pyconv::parser::Parser;
 
 using language_t = LanguageType::language_t;
 
+template<language_t TargetLanguageType = LanguageType::CPP>
 class Converter {
 
 public:
-    explicit Converter(language_t languageType) {
-        languageType_ = languageType;
-    }
-
-    vector<LineBase> convert(vector<string> filelines) {
-        vector<Line<LanguageType::PYTHON>> originalLines;
-        vector<LineBase> convertedLines;
-        switch (languageType_) {
-        case LanguageType::PYTHON:
-            MLogger::logError("Converting from python to python, nothing to be done");
-            throw ConversionException("Converting from python to python, nothing to be done");
-        case LanguageType::CPP:
-            MLogger::logInfo("Converting from python to cpp");
-            originalLines = Parser<LanguageType::PYTHON>::process(filelines);
-            convertedLines = convertToCpp_(originalLines);
-            return convertedLines;
-        default:
-            MLogger::logError("Unknown language type to convert to");
-            throw ConversionException("Unknown language type to convert to");
-        }
+    static vector<LineBase> convert(vector<string> filelines) {
+        MLogger::logInfo("Converting from python to cpp");
+        vector<Line<LanguageType::PYTHON>> originalLines = Parser<LanguageType::PYTHON>::process(filelines);
+        vector<LineBase> convertedLines = convert_(originalLines);
+        return convertedLines;
     }
 
 private:
-    language_t languageType_;
-
-    vector<LineBase> convertToCpp_(vector<Line<LanguageType::PYTHON>> pythonLines) {
-        vector<Line<LanguageType::CPP>> convertedCpp;
+    static vector<LineBase> convert_(vector<Line<LanguageType::PYTHON>> pythonLines) {
         vector<LineBase> converted;
 
-        for (Line<LanguageType::CPP> const & line : convertedCpp) {
-            converted.push_back(line);
-        }
         return converted;
     }
+
+protected:
+
+};
+
+template<>
+class Converter<LanguageType::PYTHON> {
+
+public:
+    static vector<LineBase> convert(vector<string> filelines) {
+        MLogger::logError("Converting from python to python, nothing to be done");
+        throw ConversionException("Converting from python to python, nothing to be done");
+    }
+
+private:
+
+protected:
+
+};
+
+template<>
+class Converter<LanguageType::UNKNOWN> {
+
+public:
+    static vector<LineBase> convert(vector<string> filelines) {
+        MLogger::logError("Unknown language type to convert to");
+        throw ConversionException("Unknown language type to convert to");
+    }
+
+private:
 
 protected:
 

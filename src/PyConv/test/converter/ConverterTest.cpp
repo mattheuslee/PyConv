@@ -17,15 +17,12 @@ TEST_CASE("ConverterTest class") {
     using pyconv::TestUtil;
 
     SECTION("Convert") {
-        Converter converter(LanguageType::PYTHON);
         vector<string> lines = TestUtil::getSamplePythonLineStrings();
 
-        CHECK_THROWS_AS(converter.convert(lines), ConversionException); // Converting from python to python
+        CHECK_THROWS_AS(Converter<LanguageType::PYTHON>::convert(lines), ConversionException); // Converting from python to python
 
-        converter = Converter(LanguageType::UNKNOWN);
-        CHECK_THROWS_AS(converter.convert(lines), ConversionException); // Unknown language to convert to
+        CHECK_THROWS_AS(Converter<LanguageType::UNKNOWN>::convert(lines), ConversionException); // Unknown language to convert to
 
-        converter = Converter(LanguageType::CPP);
-        CHECK_NOTHROW(converter.convert(lines));
+        CHECK_NOTHROW(Converter<LanguageType::CPP>::convert(lines));
     }
 }

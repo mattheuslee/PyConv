@@ -21,11 +21,6 @@ using variable_t = VariableType::variable_t;
 
 class VariableMap {
 
-private:
-    unordered_map<string, VariableBase> internalMap_;
-
-protected:
-
 public:
     VariableMap() {}
 
@@ -51,6 +46,11 @@ public:
     variable_t findType(string name) const {
         return find(name).second.variableType();
     }
+
+private:
+    unordered_map<string, VariableBase> internalMap_;
+
+protected:
 
 };
 

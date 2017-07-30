@@ -10,8 +10,6 @@ using std::exception;
 using std::string;
 
 class FileOpenException : public exception {
-private:
-    string message_;
 
 public:
     explicit FileOpenException(string message) {
@@ -26,7 +24,11 @@ public:
         return message_.c_str();
     }
 
+private:
+    string message_;
+
 };
+
 
 }
 }

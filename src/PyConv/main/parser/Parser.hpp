@@ -34,6 +34,15 @@ using language_t = LanguageType::language_t;
 template<language_t L = LanguageType::PYTHON>
 class Parser {
 
+public:
+    static vector<Line<LanguageType::PYTHON>> process(vector<string> lines) {
+        vector<Line<LanguageType::PYTHON>> processedLines = initialConstruct_(lines);
+        processIndentationLevels_(processedLines);
+        processVariableDeclarationAndAssigment_(processedLines);
+        printInfo(processedLines);
+        return processedLines;
+    }
+
 private:
     static void printInfo(vector<Line<LanguageType::PYTHON>> const & lines) {
         ostringstream message;
@@ -96,15 +105,6 @@ private:
     }
 
 protected:
-
-public:
-    static vector<Line<LanguageType::PYTHON>> process(vector<string> lines) {
-        vector<Line<LanguageType::PYTHON>> processedLines = initialConstruct_(lines);
-        processIndentationLevels_(processedLines);
-        processVariableDeclarationAndAssigment_(processedLines);
-        printInfo(processedLines);
-        return processedLines;
-    }
 
 };
 
