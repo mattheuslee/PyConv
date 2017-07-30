@@ -1,5 +1,5 @@
 CC = g++
-COV_CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=gnu++11 -I./src/PyConv -O0 -fno-inline -fno-inline-small-functions -fno-default-inline
+COV_CFLAGS = -Wall -fprofile-arcs -ftest-coverage -std=c++11 -I./src/PyConv -O0 -fno-inline -fno-inline-small-functions -fno-default-inline
 NON_COV_CFLAGS = -Wall -std=gnu++11 -I./src/PyConv
 GCOV_FILES_LOCATION = gcov_folder
 
