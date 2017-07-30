@@ -4,26 +4,25 @@
 #include <vector>
 
 #include "main/converter/Converter.hpp"
+#include "main/exception/ConversionException.hpp"
 #include "main/language/LanguageType.hpp"
+#include "test/TestUtil.hpp"
 
 TEST_CASE("ConverterTest class") {
     using std::string;
     using std::vector;
     using pyconv::converter::Converter;
+    using pyconv::exception::ConversionException;
     using pyconv::language::LanguageType;
-
-    using language_t = LanguageType::language_t;
+    using pyconv::TestUtil;
 
     SECTION("Convert") {
-        Converter converter(LanguageType::PYTHON);
-        vector<string> lines {"i = 5", "s = \"hello\""};
-        CHECK_FALSE(converter.convert(lines)); // No point converting from python to python
+        vector<string> lines = TestUtil::getSamplePythonLineStrings();
 
-        converter = Converter(LanguageType::UNKNOWN);
-        CHECK_FALSE(converter.convert(lines)); // Unknown language to convert to
+        CHECK_THROWS_AS(Converter<LanguageType::PYTHON>::convert(lines), ConversionException); // Converting from python to python
 
-        converter = Converter(LanguageType::CPP);
-        CHECK(converter.convert(lines));
+        CHECK_THROWS_AS(Converter<LanguageType::UNKNOWN>::convert(lines), ConversionException); // Unknown language to convert to
+
+        CHECK_NOTHROW(Converter<LanguageType::CPP>::convert(lines));
     }
-
 }

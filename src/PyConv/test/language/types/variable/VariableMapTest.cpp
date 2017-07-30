@@ -1,20 +1,18 @@
 #include "test/catch.hpp"
 
-#include <utility>
-
-#include "main/model/VariableMap.hpp"
-#include "main/language/types/variable/Variable.hpp"
+#include "main/language/types/variable/VariableBase.hpp"
+#include "main/language/types/variable/VariableMap.hpp"
 #include "main/language/types/variable/VariableType.hpp"
 
 TEST_CASE("VariableMapTest class") {
-    using pyconv::model::VariableMap;
-    using pyconv::language::types::variable::Variable;
+    using pyconv::language::types::variable::VariableBase;
+    using pyconv::language::types::variable::VariableMap;
     using pyconv::language::types::variable::VariableType;
 
     VariableMap variableMap;
 
     SECTION("Add") {
-        Variable variable;
+        VariableBase variable;
         variable.name("test");
         CHECK(variableMap.add(variable));
         CHECK_FALSE(variableMap.add(variable));
@@ -23,7 +21,7 @@ TEST_CASE("VariableMapTest class") {
     }
 
     SECTION("Find") {
-        Variable variable;
+        VariableBase variable;
         variable.name("test");
         CHECK_FALSE(variableMap.find(variable.name()).first);
         CHECK(variableMap.add(variable));
@@ -32,7 +30,7 @@ TEST_CASE("VariableMapTest class") {
     }
 
     SECTION("Find Type") {
-        Variable variable;
+        VariableBase variable;
         variable.name("test");
         variable.variableType(VariableType::INT);
         CHECK(variableMap.add(variable));

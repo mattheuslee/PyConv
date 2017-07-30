@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "LineType.hpp"
+#include "LineBase.hpp"
 #include "main/language/LanguageType.hpp"
 
 namespace pyconv {
@@ -12,37 +12,34 @@ namespace line {
 
 using pyconv::language::LanguageType;
 
-using line_t = pyconv::language::types::line::LineType::line_t;
 using language_t = pyconv::language::LanguageType::language_t;
 
-class Line {
+template<language_t L = LanguageType::PYTHON>
+class Line : public LineBase {
 
 public:
-    Line();
-
-    Line& line(std::string line);
-    std::string line();
-
-    language_t languageType();
-
-    Line& lineType(line_t lineType);
-    line_t lineType();
-
-    Line& numWhitespace(int numWhitespace);
-    int numWhitespace();
-
-    Line& indentationLevel(int indentationLevel);
-    int indentationLevel();
+    Line() : LineBase() {
+        languageType_ = LanguageType::PYTHON;
+    }
 
 private:
 
 protected:
-    std::string line_;
-    language_t languageType_;
-    line_t lineType_;
 
-    int numWhitespace_;
-    int indentationLevel_;
+};
+
+template<>
+class Line<LanguageType::CPP> : public LineBase {
+
+public:
+    Line() : LineBase() {
+        languageType_ = LanguageType::CPP;
+    }
+
+
+private:
+
+protected:
 
 };
 

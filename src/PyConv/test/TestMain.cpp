@@ -1,5 +1,8 @@
 #define CATCH_CONFIG_RUNNER
-#include "catch.hpp"
+#include "test/catch.hpp"
+
+#include <string>
+#include <vector>
 
 #include "main/util/logging/MLogger.hpp"
 

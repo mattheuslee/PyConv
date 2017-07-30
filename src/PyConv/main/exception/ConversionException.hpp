@@ -9,10 +9,12 @@ namespace exception {
 using std::exception;
 using std::string;
 
-class FileOpenException : public exception {
+class ConversionException : public exception {
+private:
+    string message_;
 
 public:
-    explicit FileOpenException(string message) {
+    explicit ConversionException(string message) {
         message_ = message;
     }
 
@@ -24,11 +26,7 @@ public:
         return message_.c_str();
     }
 
-private:
-    string message_;
-
 };
-
 
 }
 }

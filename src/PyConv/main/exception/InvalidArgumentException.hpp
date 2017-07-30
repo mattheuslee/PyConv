@@ -10,8 +10,6 @@ using std::exception;
 using std::string;
 
 class InvalidArgumentException : public exception {
-private:
-    string message_;
 
 public:
     explicit InvalidArgumentException(string message) {
@@ -25,6 +23,9 @@ public:
     const char* what() {
         return message_.c_str();
     }
+
+private:
+    string message_;
 
 };
 

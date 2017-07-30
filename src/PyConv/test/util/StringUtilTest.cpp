@@ -17,11 +17,29 @@ TEST_CASE("StringUtil class") {
         CHECK(StringUtil::trimTrailing("  test  ") == "  test");
     }
 
+    SECTION("Trim Trailing Char") {
+        CHECK(StringUtil::trimTrailingChar("test", ':') == "test");
+        CHECK(StringUtil::trimTrailingChar("test:", ':') == "test");
+        CHECK(StringUtil::trimTrailingChar("test:", ';') == "test:");
+    }
+
     SECTION("To Lower Case") {
         CHECK(StringUtil::toLowerCase("TEST") == "test");
     }
 
     SECTION("To Upper Case") {
         CHECK(StringUtil::toUpperCase("test") == "TEST");
+    }
+
+    SECTION("Num Leading Whitespace") {
+        CHECK(StringUtil::numLeadingWhitespace("test") == 0);
+        CHECK(StringUtil::numLeadingWhitespace("  test") == 2);
+        CHECK(StringUtil::numLeadingWhitespace("    test") == 4);
+    }
+
+    SECTION("Extract First Word") {
+        CHECK(StringUtil::extractFirstWord("") == "");
+        CHECK(StringUtil::extractFirstWord("test") == "test");
+        CHECK(StringUtil::extractFirstWord("test 2") == "test");
     }
 }

@@ -15,17 +15,38 @@ class LanguageType {
 public:
     typedef int language_t;
 
-    static const int PYTHON = 0;
-    static const int CPP = 1;
-    static const int UNKNOWN = -1;
+    static const language_t PYTHON = 0;
+    static const language_t CPP = 1;
+    static const language_t UNKNOWN = -1;
 
-    static bool isValidLanguageType(int const & language);
+    static bool isValidLanguageType(language_t const & language) {
+        return language == PYTHON || language == CPP;
+    }
 
-    static bool isValidLanguageType(string const & language);
+    static bool isValidLanguageType(string const & language) {
+        return language == "python" || language == "cpp";
+    }
 
-    static int stringToLanguageType(string const & language);
+    static language_t stringToLanguageType(string const & language) {
+        if (StringUtil::toLowerCase(language) == "python") {
+            return PYTHON;
+        } else if (StringUtil::toLowerCase(language) == "cpp") {
+            return CPP;
+        } else {
+            return UNKNOWN;
+        }
+    }
 
-    static string languageTypeToString(int const & language);
+    static string languageTypeToString(language_t const & language) {
+        switch (language) {
+        case PYTHON:
+            return "python";
+        case CPP:
+            return "cpp";
+        default:
+            return "unknown";
+        }
+    }
 
 private:
 

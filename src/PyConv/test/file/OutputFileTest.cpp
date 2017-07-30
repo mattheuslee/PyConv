@@ -2,15 +2,13 @@
 
 #include <string>
 #include <vector>
-
 #include "main/exception/FileOpenException.hpp"
 #include "main/file/InputFile.hpp"
 #include "main/file/OutputFile.hpp"
 
-using std::string;
-using std::vector;
-
 TEST_CASE("OutputFile class") {
+    using std::string;
+    using std::vector;
     using pyconv::exception::FileOpenException;
     using pyconv::file::InputFile;
     using pyconv::file::OutputFile;
