@@ -14,8 +14,6 @@ TEST_CASE("ConverterTest class") {
     using pyconv::exception::ConversionException;
     using pyconv::language::LanguageType;
 
-    using language_t = LanguageType::language_t;
-
     SECTION("Convert") {
         Converter converter(LanguageType::PYTHON);
         vector<string> lines {

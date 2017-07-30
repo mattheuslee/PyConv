@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "main/language/LanguageType.hpp"
+#include "main/language/types/line/Line.hpp"
 #include "main/language/types/line/LineType.hpp"
 #include "main/language/types/line/LineUtil.hpp"
 #include "main/util/StringUtil.hpp"
