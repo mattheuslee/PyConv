@@ -10,6 +10,10 @@ TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cp
 # Header files used for tests, for coverage
 TEST_HEADERS := $(shell find ./src/PyConv/main -name "*.hpp")
 
+suite:
+	make PyConv
+	make test
+
 PyConv: $(MAIN_FILES)
 	make clean
 	$(CC) -o PyConv $^ $(NON_COV_CFLAGS)

@@ -71,7 +71,7 @@ private:
 protected:
 
 public:
-    MainApp(vector<string> const & args) {
+    explicit MainApp(vector<string> const & args) {
         checkArgsValid_(args);
         extractArgs_(args);
     }
