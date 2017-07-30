@@ -6,7 +6,8 @@ GCOV_FILES_LOCATION = gcov_folder
 
 MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp")
 
-TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
+#TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
+TEST_FILES := ./src/Pyconv/test/PyConvMainTest.cpp
 
 PyConv: $(MAIN_FILES)
 	$(CC) -o PyConv $^ $(CFLAGS)

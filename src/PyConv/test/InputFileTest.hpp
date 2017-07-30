@@ -1,16 +1,6 @@
-#include "test/catch.hpp"
-
-#include <string>
-#include <vector>
-
-#include "main/exception/FileOpenException.hpp"
-#include "main/file/InputFile.hpp"
-#include "main/util/logging/MLogger.hpp"
-
-using std::string;
-using std::vector;
-
 TEST_CASE("InputFile class") {
+    using std::string;
+    using std::vector;
     using pyconv::exception::FileOpenException;
     using pyconv::file::InputFile;
 

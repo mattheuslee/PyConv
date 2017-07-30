@@ -1,12 +1,3 @@
-#include <string>
-#include <vector>
-
-#include "catch.hpp"
-
-#include "main/MainApp.hpp"
-#include "main/exception/FileOpenException.hpp"
-#include "main/exception/InvalidArgumentException.hpp"
-
 TEST_CASE("MainApp class") {
     using std::string;
     using std::vector;

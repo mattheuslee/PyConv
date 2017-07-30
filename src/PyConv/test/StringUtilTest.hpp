@@ -1,7 +1,3 @@
-#include "test/catch.hpp"
-
-#include "main/util/StringUtil.hpp"
-
 TEST_CASE("StringUtil class") {
     using pyconv::util::StringUtil;
 
@@ -23,5 +19,17 @@ TEST_CASE("StringUtil class") {
 
     SECTION("To Upper Case") {
         CHECK(StringUtil::toUpperCase("test") == "TEST");
+    }
+
+    SECTION("Num Leading Whitespace") {
+        CHECK(StringUtil::numLeadingWhitespace("test") == 0);
+        CHECK(StringUtil::numLeadingWhitespace("  test") == 2);
+        CHECK(StringUtil::numLeadingWhitespace("    test") == 4);
+    }
+
+    SECTION("Extract First Word") {
+        CHECK(StringUtil::extractFirstWord("") == "");
+        CHECK(StringUtil::extractFirstWord("test") == "test");
+        CHECK(StringUtil::extractFirstWord("test 2") == "test");
     }
 }

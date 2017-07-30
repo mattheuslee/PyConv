@@ -20,9 +20,24 @@ using pyconv::util::StringUtil;
 class OutputFile {
 
 public:
-    OutputFile();
-    void filelines(vector<string> filelines);
-    void save(string filename);
+    OutputFile() {}
+
+    void filelines(vector<string> filelines) {
+        filelines_ = filelines;
+    }
+
+    void save(string filename) {
+        ofstream file;
+        file.open(filename);
+        if (!file.is_open()) {
+            MLogger::logError("Unable to open file for output: " + filename);
+            throw FileOpenException("Unable to open file for output: " + filename);
+        }
+        for (string line : filelines_) {
+            file << StringUtil::trimTrailing(line) << endl;
+        }
+        MLogger::logInfo("Successfully saved output to: " + filename);
+    }
 
 private:
     string filename_;

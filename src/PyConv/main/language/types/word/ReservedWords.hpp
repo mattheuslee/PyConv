@@ -16,7 +16,9 @@ using std::vector;
 class ReservedWords {
 
 public:
-    static bool isReservedWord(string word);
+    static bool isReservedWord(string word) {
+        return find(reservedWords_.begin(), reservedWords_.end(), word) != reservedWords_.end();
+    }
 
 private:
 

@@ -2,7 +2,7 @@
 
 namespace pyconv {
 namespace language {
-namespace types{
+namespace types {
 namespace variable {
 
 class VariableType {
