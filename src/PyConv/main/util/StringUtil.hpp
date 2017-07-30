@@ -34,6 +34,17 @@ public:
         return trimTrailing(trimLeading(s));
     }
 
+    static string trimTrailingChar(string const & s, char const & c) {
+        if (s.size() == 0) {
+            return s;
+        }
+        if (s.back() == c) {
+            return s.substr(0, s.size() - 1);
+        } else {
+            return s;
+        }
+    }
+
     static string toLowerCase(string const & s) {
         string result = s;
         transform(s.begin(), s.end(), result.begin(), ::tolower);

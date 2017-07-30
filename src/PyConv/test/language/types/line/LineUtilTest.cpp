@@ -11,11 +11,12 @@ TEST_CASE("LineUtil class") {
     LineUtil<LanguageType::PYTHON> pythonLineUtil;
 
     SECTION("Line Type") {
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("elif") == LineType::ELIF_STATEMENT);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("else") == LineType::ELSE_STATEMENT);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("for") == LineType::FOR_LOOP);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("if") == LineType::IF_STATEMENT);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("print") == LineType::PRINT_STATEMENT);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("blah = 3") == LineType::VARIABLE);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("") == LineType::BLANK);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("elif i == 1:") == LineType::ELIF_STATEMENT);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("else:") == LineType::ELSE_STATEMENT);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("for i in list:") == LineType::FOR_LOOP);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("if i == 1") == LineType::IF_STATEMENT);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("print i") == LineType::PRINT_STATEMENT);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("i = 3") == LineType::VARIABLE);
     }
 }

@@ -28,6 +28,7 @@ protected:
 public:
     static line_t lineType(string line) {
         string firstWord = StringUtil::extractFirstWord(line);
+        firstWord = StringUtil::trimTrailingChar(firstWord, ':');
         return LineType::firstWordToLineType(firstWord);
     }
 

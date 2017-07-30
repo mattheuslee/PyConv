@@ -7,4 +7,4 @@ before_install:
 script:
   - make && make coverage
 after_success:
-  - coveralls --exclude src/PyConv/test --exclude src/PyConv/main/util/logging/termcolor.hpp --gcov-options '\-lp'
+  - coveralls --exclude src/PyConv/test --exclude src/PyConv/main/util/logging --gcov-options '\-lp'

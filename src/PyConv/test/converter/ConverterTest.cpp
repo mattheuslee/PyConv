@@ -17,13 +17,12 @@ TEST_CASE("ConverterTest class") {
     SECTION("Convert") {
         Converter converter(LanguageType::PYTHON);
         vector<string> lines {
-            "",
-            "elif i equals 4:",
-            "else",
-            "for i in list",
-            "if i equals 4:",
-            "print i",
-             "s = \"hello\""
+            "i = 5",
+            "if i == 5:",
+            "    print \"5!\"",
+            "else:",
+            "    print \"not 5!\"",
+            ""
         };
         CHECK_THROWS_AS(converter.convert(lines), ConversionException); // Converting from python to python
 
