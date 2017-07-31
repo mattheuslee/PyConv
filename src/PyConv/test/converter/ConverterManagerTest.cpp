@@ -41,13 +41,16 @@ TEST_CASE("ConverterManager class") {
         CHECK(convertedLines[idx].line() == "int j = i;");
 
         ++idx;
-        CHECK(convertedLines[idx].line() == "if (i == 5) {");
+        CHECK(convertedLines[idx].line() == "for (k in {0, 10}) {");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "if (k == 5) {");
 
         ++idx;
         CHECK(convertedLines[idx].line() == "print (\"5!\");");
 
         ++idx;
-        CHECK(convertedLines[idx].line() == "} else if (i == 10) {");
+        CHECK(convertedLines[idx].line() == "} else if (k == 10) {");
 
         ++idx;
         CHECK(convertedLines[idx].line() == "print (\"10!\");");

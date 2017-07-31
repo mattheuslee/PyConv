@@ -45,46 +45,53 @@ TEST_CASE("Parser class") {
         CHECK(processedLines[idx].indentationLevel() == 0);
 
         ++idx;
-        CHECK(processedLines[idx].line() == "if i == 5:");
+        CHECK(processedLines[idx].line() == "for k in {0, 10}:");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[idx].lineType() == LineType::IF_STATEMENT);
+        CHECK(processedLines[idx].lineType() == LineType::FOR_LOOP);
         CHECK(processedLines[idx].numWhitespace() == 0);
         CHECK(processedLines[idx].indentationLevel() == 0);
+
+        ++idx;
+        CHECK(processedLines[idx].line() == "if k == 5:");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::IF_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
 
         ++idx;
         CHECK(processedLines[idx].line() == "print (\"5!\")");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
         CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
-        CHECK(processedLines[idx].numWhitespace() == 4);
-        CHECK(processedLines[idx].indentationLevel() == 1);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
 
         ++idx;
-        CHECK(processedLines[idx].line() == "elif i == 10:");
+        CHECK(processedLines[idx].line() == "elif k == 10:");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
         CHECK(processedLines[idx].lineType() == LineType::ELIF_STATEMENT);
-        CHECK(processedLines[idx].numWhitespace() == 0);
-        CHECK(processedLines[idx].indentationLevel() == 0);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
 
         ++idx;
         CHECK(processedLines[idx].line() == "print (\"10!\")");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
         CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
-        CHECK(processedLines[idx].numWhitespace() == 4);
-        CHECK(processedLines[idx].indentationLevel() == 1);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
 
         ++idx;
         CHECK(processedLines[idx].line() == "else:");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
         CHECK(processedLines[idx].lineType() == LineType::ELSE_STATEMENT);
-        CHECK(processedLines[idx].numWhitespace() == 0);
-        CHECK(processedLines[idx].indentationLevel() == 0);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
 
         ++idx;
         CHECK(processedLines[idx].line() == "print (\"Not 5 or 10!\")");
         CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
         CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
-        CHECK(processedLines[idx].numWhitespace() == 4);
-        CHECK(processedLines[idx].indentationLevel() == 1);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
 
         ++idx;
         CHECK(processedLines[idx].line() == "");

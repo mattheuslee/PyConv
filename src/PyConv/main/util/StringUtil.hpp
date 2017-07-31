@@ -3,18 +3,27 @@
 #include <algorithm>
 #include <cctype>
 #include <iterator>
+#include <sstream>
 #include <string>
 
 namespace pyconv {
 namespace util {
 
 using std::distance;
+using std::ostringstream;
 using std::string;
 using std::transform;
 
 class StringUtil {
 
 public:
+    template<typename T>
+    static string toString(T const & t) {
+        ostringstream result;
+        result << t;
+        return result.str();
+    }
+
     static string trimLeading(string const & s) {
         auto it = s.begin();
         while (it != s.end() && isspace(*it)) {

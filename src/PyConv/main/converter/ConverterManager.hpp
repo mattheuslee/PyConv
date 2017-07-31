@@ -57,28 +57,22 @@ public:
 
 private:
     static string convertLine_(Line<LanguageType::PYTHON> const & line, VariableMap const & variableMap) {
-        switch (line.lineType()) {
-        case LineType::BLANK:
-            return "";
-        case LineType::ELIF_STATEMENT:
+        if (line.lineType() == LineType::ELIF_STATEMENT) {
             return convertElifStatement_(line.line());
-        case LineType::ELSE_STATEMENT:
+        } else if (line.lineType() == LineType::ELSE_STATEMENT) {
             return convertElseStatement_(line.line());
-        case LineType::FOR_LOOP:
+        } else if (line.lineType() == LineType::FOR_LOOP) {
             return convertForLoop_(line.line());
-        case LineType::IF_STATEMENT:
+        } else if (line.lineType() == LineType::IF_STATEMENT) {
             return convertIfStatement_(line.line());
-        case LineType::PRINT_STATEMENT:
+        } else if (line.lineType() == LineType::PRINT_STATEMENT) {
             return convertPrintStatement_(line.line());
-        case LineType::VARIABLE_ASSIGNMENT:
+        } else if (line.lineType() == LineType::VARIABLE_ASSIGNMENT) {
             return convertVariableAssignment_(line.line());
-        case LineType::VARIABLE_DECLARATION:
+        } else if (line.lineType() == LineType::VARIABLE_DECLARATION) {
             return convertVariableDeclaration_(line.line(), variableMap);
-        case LineType::UNKNOWN:
-        default:
-            MLogger::logError("Unable to convert line: " + line.line());
-            throw ConversionException("Unable to convert line: " + line.line());
-            return "=====UNABLE_TO_CONVERT=====" + line.line();
+        } else {
+            return "";
         }
     }
 
@@ -91,7 +85,7 @@ private:
     }
 
     static string convertForLoop_(string const & line) {
-        return line;
+        return "for (" + LineUtil<LanguageType::PYTHON>::extractForStatement(line) + ") {";
     }
 
     static string convertIfStatement_(string const & line) {
@@ -111,11 +105,8 @@ private:
         auto assignment = VariableUtil<LanguageType::PYTHON>::extractVariableAssignment(line);
         if (variableMap.find(name).first) {
             return VariableType::variableTypeToString(variableMap.findType(name)) + " " + line + ";";
-        } else if (variableMap.find(assignment).first) {
-            return VariableType::variableTypeToString(variableMap.findType(assignment)) + " " + line + ";";
         } else {
-            return VariableType::variableTypeToString(VariableUtil<LanguageType::PYTHON>::getVariableType(assignment))
-                 + " " + line + ";";
+            return VariableType::variableTypeToString(variableMap.findType(assignment)) + " " + line + ";";
         }
     }
 

@@ -89,8 +89,13 @@ private:
     }
 
     static void processIndentationLevels_(vector<Line<LanguageType::PYTHON>> & lines) {
-        int prevNumWhitespace = 0;
-        int currIndentationLevel = 0;
+        // TODO figure out better way to handle this
+        auto whitespacePerTab = 4;
+        for (auto & line : lines) {
+            line.indentationLevel(line.numWhitespace() / whitespacePerTab);
+        }
+        /*auto prevNumWhitespace = 0;
+        auto currIndentationLevel = 0;
         for (auto & line : lines) {
             if (line.numWhitespace() < prevNumWhitespace) {
                 --currIndentationLevel;
@@ -99,7 +104,7 @@ private:
             }
             prevNumWhitespace = line.numWhitespace();
             line.indentationLevel(currIndentationLevel);
-        }
+        }*/
     }
 
     static void processVariableDeclarationAndAssigment_(vector<Line<LanguageType::PYTHON>> & lines) {

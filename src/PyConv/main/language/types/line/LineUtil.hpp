@@ -38,6 +38,11 @@ public:
         return StringUtil::trimTrailingChar(StringUtil::trim(line.substr(numChars)), ':');
     }
 
+    static string extractForStatement(string const & line) {
+        auto numChars = LineType::lineTypeToString(LineType::FOR_LOOP).size();
+        return StringUtil::trimTrailingChar(StringUtil::trim(line.substr(numChars)), ':');
+    }
+
 private:
 
 protected:
