@@ -17,6 +17,7 @@ TEST_CASE("VariableUtil class") {
         CHECK(VariableUtil<LanguageType::PYTHON>::extractVariableAssignment("i = 3.14") == "3.14");
         CHECK(VariableUtil<LanguageType::PYTHON>::extractVariableAssignment("i = 42") == "42");
         CHECK(VariableUtil<LanguageType::PYTHON>::extractVariableAssignment("i = \"hello\"") == "\"hello\"");
+        CHECK(VariableUtil<LanguageType::PYTHON>::extractVariableAssignment("i") == "");
     }
 
     SECTION("Get Variable Type") {
