@@ -35,13 +35,12 @@ public:
         return StringUtil::trim(line.substr(start + 1));
     }
 
-    static variable_t getVariableType(string const & line) {
-        auto assignment = extractVariableAssignment(line);
-        if (line.find_first_of('.') != string::npos) {
+    static variable_t getVariableType(string const & assignment) {
+        if (assignment.find_first_of('.') != string::npos) {
             return VariableType::DOUBLE;
         } else if (StringUtil::isAllDigit(assignment)) {
             return VariableType::INT;
-        } else if (line.find_first_of("\"\'") != string::npos) {
+        } else if (assignment.find_first_of("\"\'") != string::npos) {
             return VariableType::STRING;
         } else {
             return VariableType::UNKNOWN;

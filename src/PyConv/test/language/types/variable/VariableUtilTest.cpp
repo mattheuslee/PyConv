@@ -21,9 +21,9 @@ TEST_CASE("VariableUtil class") {
     }
 
     SECTION("Get Variable Type") {
-        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("i = 3.14") == VariableType::DOUBLE);
-        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("i = 42") == VariableType::INT);
-        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("i = \"hello\"") == VariableType::STRING);
-        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("i = blah") == VariableType::UNKNOWN);
+        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("3.14") == VariableType::DOUBLE);
+        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("42") == VariableType::INT);
+        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("\"hello\"") == VariableType::STRING);
+        CHECK(VariableUtil<LanguageType::PYTHON>::getVariableType("blah") == VariableType::UNKNOWN);
     }
 }

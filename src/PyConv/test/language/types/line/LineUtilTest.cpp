@@ -15,8 +15,16 @@ TEST_CASE("LineUtil class") {
         CHECK(LineUtil<LanguageType::PYTHON>::lineType("elif i == 1:") == LineType::ELIF_STATEMENT);
         CHECK(LineUtil<LanguageType::PYTHON>::lineType("else:") == LineType::ELSE_STATEMENT);
         CHECK(LineUtil<LanguageType::PYTHON>::lineType("for i in list:") == LineType::FOR_LOOP);
-        CHECK(LineUtil<LanguageType::PYTHON>::lineType("if i == 1") == LineType::IF_STATEMENT);
+        CHECK(LineUtil<LanguageType::PYTHON>::lineType("if i == 1:") == LineType::IF_STATEMENT);
         CHECK(LineUtil<LanguageType::PYTHON>::lineType("print i") == LineType::PRINT_STATEMENT);
         CHECK(LineUtil<LanguageType::PYTHON>::lineType("i = 3") == LineType::VARIABLE);
+    }
+
+    SECTION("Extract If Condition") {
+        CHECK(LineUtil<LanguageType::PYTHON>::extractIfCondition("if i == 1:") == "i == 1");
+    }
+
+    SECTION("Extract Elif Condition") {
+        CHECK(LineUtil<LanguageType::PYTHON>::extractElifCondition("elif i == 1:") == "i == 1");
     }
 }

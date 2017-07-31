@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "main/language/LanguageType.hpp"
@@ -20,7 +21,9 @@ namespace pyconv {
 namespace parser {
 
 using std::endl;
+using std::make_pair;
 using std::ostringstream;
+using std::pair;
 using std::string;
 using std::vector;
 using pyconv::language::LanguageType;
@@ -39,29 +42,13 @@ template<language_t L = LanguageType::PYTHON>
 class Parser {
 
 public:
-    static vector<Line<LanguageType::PYTHON>> preProcess(vector<string> lines) {
+    static pair<vector<Line<LanguageType::PYTHON>>, VariableMap> preprocess(vector<string> const & lines) {
         auto processedLines = initialConstruct_(lines);
         processIndentationLevels_(processedLines);
         processVariableDeclarationAndAssigment_(processedLines);
+        auto variableMap = parseVariables_(processedLines);
         printInfo(processedLines);
-        return processedLines;
-    }
-
-    static VariableMap parseVariables(vector<Line<LanguageType::PYTHON>> const & lines) {
-        auto variableMap = VariableMap{};
-        for (auto const & line : lines) {
-            if (line.lineType() == LineType::VARIABLE_DECLARATION) {
-                auto variable = Variable<LanguageType::PYTHON>{};
-                variable.name(VariableUtil<LanguageType::PYTHON>::extractVariableName(line.line()));
-                auto assignment = VariableUtil<LanguageType::PYTHON>::extractVariableAssignment(line.line());
-                if (!variableMap.find(assignment).first) {
-                    variable.variableType(VariableUtil<LanguageType::PYTHON>::getVariableType(line.line()));
-                    variableMap.add(variable);
-                    printVariableAdded(variable);
-                }
-            }
-        }
-        return variableMap;
+        return make_pair(processedLines, variableMap);
     }
 
 private:
@@ -129,6 +116,23 @@ private:
                 }
             }
         }
+    }
+
+    static VariableMap parseVariables_(vector<Line<LanguageType::PYTHON>> const & lines) {
+        auto variableMap = VariableMap{};
+        for (auto const & line : lines) {
+            if (line.lineType() == LineType::VARIABLE_DECLARATION) {
+                auto variable = Variable<LanguageType::PYTHON>{};
+                variable.name(VariableUtil<LanguageType::PYTHON>::extractVariableName(line.line()));
+                auto assignment = VariableUtil<LanguageType::PYTHON>::extractVariableAssignment(line.line());
+                if (!variableMap.find(assignment).first) {
+                    variable.variableType(VariableUtil<LanguageType::PYTHON>::getVariableType(assignment));
+                    variableMap.add(variable);
+                    printVariableAdded(variable);
+                }
+            }
+        }
+        return variableMap;
     }
 
 protected:

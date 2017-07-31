@@ -22,10 +22,20 @@ template <language_t L = LanguageType::PYTHON>
 class LineUtil {
 
 public:
-    static line_t lineType(string line) {
+    static line_t lineType(string const & line) {
         auto firstWord = StringUtil::extractFirstWord(line);
         firstWord = StringUtil::trimTrailingChar(firstWord, ':');
         return LineType::firstWordToLineType(firstWord);
+    }
+
+    static string extractElifCondition(string const & line) {
+        auto numChars = LineType::lineTypeToString(LineType::ELIF_STATEMENT).size();
+        return StringUtil::trimTrailingChar(StringUtil::trim(line.substr(numChars)), ':');
+    }
+
+    static string extractIfCondition(string const & line) {
+        auto numChars = LineType::lineTypeToString(LineType::IF_STATEMENT).size();
+        return StringUtil::trimTrailingChar(StringUtil::trim(line.substr(numChars)), ':');
     }
 
 private:

@@ -16,15 +16,49 @@ TEST_CASE("ConverterManager class") {
     using pyconv::language::LanguageType;
     using pyconv::TestUtil;
 
-    SECTION("Convert") {
-        vector<string> lines = TestUtil::getSamplePythonLineStrings();
+    SECTION("Convert Throws") {
+        auto lines = TestUtil::getSamplePythonLineStrings();
 
         // Converting from python to python
         CHECK_THROWS_AS(ConverterManager<LanguageType::PYTHON>::convert(lines), ConversionException);
 
         // Unknown conversion target language
         CHECK_THROWS_AS(ConverterManager<LanguageType::UNKNOWN>::convert(lines), ConversionException);
+    }
 
-        CHECK_NOTHROW(ConverterManager<LanguageType::CPP>::convert(lines));
+    SECTION("Convert No Throw") {
+        auto lines = TestUtil::getSamplePythonLineStrings();
+        auto convertedLines = ConverterManager<LanguageType::CPP>::convert(lines);
+
+        REQUIRE(convertedLines.size() == TestUtil::SAMPLE_NUM_LINES);
+        auto idx = 0;
+        CHECK(convertedLines[idx].line() == "int i = 5;");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "i = 10;");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "int j = i;");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "if (i == 5) {");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "print (\"5!\");");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "} else if (i == 10) {");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "print (\"10!\");");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "} else {");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "print (\"Not 5 or 10!\");");
+
+        ++idx;
+        CHECK(convertedLines[idx].line() == "");
     }
 }
