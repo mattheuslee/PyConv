@@ -11,6 +11,8 @@
 #include "main/language/types/line/LineUtil.hpp"
 #include "main/language/types/variable/Variable.hpp"
 #include "main/language/types/variable/VariableMap.hpp"
+#include "main/language/types/variable/VariableType.hpp"
+#include "main/language/types/variable/VariableUtil.hpp"
 #include "main/util/StringUtil.hpp"
 #include "main/util/logging/MLogger.hpp"
 
@@ -27,6 +29,8 @@ using pyconv::language::types::line::LineType;
 using pyconv::language::types::line::LineUtil;
 using pyconv::language::types::variable::Variable;
 using pyconv::language::types::variable::VariableMap;
+using pyconv::language::types::variable::VariableType;
+using pyconv::language::types::variable::VariableUtil;
 using pyconv::util::StringUtil;
 
 using language_t = LanguageType::language_t;
@@ -35,19 +39,36 @@ template<language_t L = LanguageType::PYTHON>
 class Parser {
 
 public:
-    static vector<Line<LanguageType::PYTHON>> process(vector<string> lines) {
-        vector<Line<LanguageType::PYTHON>> processedLines = initialConstruct_(lines);
+    static vector<Line<LanguageType::PYTHON>> preProcess(vector<string> lines) {
+        auto processedLines = initialConstruct_(lines);
         processIndentationLevels_(processedLines);
         processVariableDeclarationAndAssigment_(processedLines);
         printInfo(processedLines);
         return processedLines;
     }
 
+    static VariableMap parseVariables(vector<Line<LanguageType::PYTHON>> const & lines) {
+        auto variableMap = VariableMap{};
+        for (auto const & line : lines) {
+            if (line.lineType() == LineType::VARIABLE_DECLARATION) {
+                auto variable = Variable<LanguageType::PYTHON>{};
+                variable.name(VariableUtil<LanguageType::PYTHON>::extractVariableName(line.line()));
+                auto assignment = VariableUtil<LanguageType::PYTHON>::extractVariableAssignment(line.line());
+                if (!variableMap.find(assignment).first) {
+                    variable.variableType(VariableUtil<LanguageType::PYTHON>::getVariableType(line.line()));
+                    variableMap.add(variable);
+                    printVariableAdded(variable);
+                }
+            }
+        }
+        return variableMap;
+    }
+
 private:
     static void printInfo(vector<Line<LanguageType::PYTHON>> const & lines) {
         ostringstream message;
         message << "Processed python lines:" << endl;
-        for (Line<LanguageType::PYTHON> const & line : lines) {
+        for (auto const & line : lines) {
             message << "line: " << line.line() << endl
                     << "num whitespace: " << line.numWhitespace()
                     << " indentation level: " << line.indentationLevel()
@@ -56,9 +77,17 @@ private:
         MLogger::logInfo(message.str());
     }
 
+    static void printVariableAdded(Variable<LanguageType::PYTHON> const & variable) {
+        ostringstream message;
+        message << "New python variable:" << endl
+                << "Name: " << variable.name()
+                << " Type: " << VariableType::variableTypeToString(variable.variableType());
+        MLogger::logInfo(message.str());
+    }
+
     static vector<Line<LanguageType::PYTHON>> initialConstruct_(vector<string> const & lines) {
         vector<Line<LanguageType::PYTHON>> initiallyConstructedLines;
-        for (string const & line : lines) {
+        for (auto const & line : lines) {
             initiallyConstructedLines.push_back(constructPythonLine_(line));
         }
         return initiallyConstructedLines;
@@ -75,8 +104,7 @@ private:
     static void processIndentationLevels_(vector<Line<LanguageType::PYTHON>> & lines) {
         int prevNumWhitespace = 0;
         int currIndentationLevel = 0;
-
-        for (Line<LanguageType::PYTHON> & line : lines) {
+        for (auto & line : lines) {
             if (line.numWhitespace() < prevNumWhitespace) {
                 --currIndentationLevel;
             } else if (line.numWhitespace() > prevNumWhitespace) {
@@ -89,8 +117,7 @@ private:
 
     static void processVariableDeclarationAndAssigment_(vector<Line<LanguageType::PYTHON>> & lines) {
         VariableMap variableMap;
-
-        for (Line<LanguageType::PYTHON> & line : lines) {
+        for (auto & line : lines) {
             if (line.lineType() == LineType::VARIABLE) {
                 Variable<LanguageType::PYTHON> variable;
                 string variableName = StringUtil::extractFirstWord(line.line());

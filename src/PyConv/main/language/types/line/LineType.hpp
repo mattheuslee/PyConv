@@ -32,6 +32,8 @@ public:
             return "blank";
         case ELIF_STATEMENT:
             return "elif";
+        case ELSE_STATEMENT:
+            return "else";
         case ELSE_IF_STATEMENT:
             return "else if";
         case FOR_LOOP:

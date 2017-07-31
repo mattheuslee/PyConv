@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "main/converter/Converter.hpp"
+#include "main/converter/ConverterManager.hpp"
 #include "main/exception/ConversionException.hpp"
 #include "main/exception/FileOpenException.hpp"
 #include "main/exception/InvalidArgumentException.hpp"
@@ -16,7 +16,7 @@ namespace pyconv {
 
 using std::string;
 using std::vector;
-using pyconv::converter::Converter;
+using pyconv::converter::ConverterManager;
 using pyconv::exception::ConversionException;
 using pyconv::exception::FileOpenException;
 using pyconv::exception::InvalidArgumentException;
@@ -61,9 +61,9 @@ private:
 
     vector<LineBase> convertForType_(vector<string> const & filelines) {
         if (languageType_ == LanguageType::PYTHON) {
-            return Converter<LanguageType::PYTHON>::convert(filelines);
+            return ConverterManager<LanguageType::PYTHON>::convert(filelines);
         } else {
-            return Converter<LanguageType::CPP>::convert(filelines);
+            return ConverterManager<LanguageType::CPP>::convert(filelines);
         }
     }
 

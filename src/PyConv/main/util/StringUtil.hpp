@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cctype>
 #include <iterator>
 #include <string>
 
@@ -46,13 +47,13 @@ public:
     }
 
     static string toLowerCase(string const & s) {
-        string result = s;
+        auto result = s;
         transform(s.begin(), s.end(), result.begin(), ::tolower);
         return result;
     }
 
     static string toUpperCase(string const & s) {
-        string result = s;
+        auto result = s;
         transform(s.begin(), s.end(), result.begin(), ::toupper);
         return result;
     }
@@ -66,12 +67,21 @@ public:
     }
 
     static string extractFirstWord(string const & s) {
-        string temp = trimLeading(s);
+        auto temp = trimLeading(s);
         auto it = s.begin();
         while (it != s.end() && !isspace(*it)) {
             ++it;
         }
         return string(s.begin(), it);
+    }
+
+    static bool isAllDigit(string const & s) {
+        for (auto c : s) {
+            if (!isdigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 private:

@@ -42,4 +42,10 @@ TEST_CASE("StringUtil class") {
         CHECK(StringUtil::extractFirstWord("test") == "test");
         CHECK(StringUtil::extractFirstWord("test 2") == "test");
     }
+
+    SECTION("Is All Digit") {
+        CHECK(StringUtil::isAllDigit("123"));
+        CHECK_FALSE(StringUtil::isAllDigit("123a"));
+        CHECK_FALSE(StringUtil::isAllDigit("123!"));
+    }
 }

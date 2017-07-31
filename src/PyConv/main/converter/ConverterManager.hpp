@@ -26,29 +26,25 @@ using pyconv::parser::Parser;
 using language_t = LanguageType::language_t;
 
 template<language_t TargetLanguageType = LanguageType::CPP>
-class Converter {
+class ConverterManager {
 
 public:
     static vector<LineBase> convert(vector<string> filelines) {
         MLogger::logInfo("Converting from python to cpp");
-        vector<Line<LanguageType::PYTHON>> originalLines = Parser<LanguageType::PYTHON>::process(filelines);
-        vector<LineBase> convertedLines = convert_(originalLines);
-        return convertedLines;
+        auto originalLines = Parser<LanguageType::PYTHON>::preProcess(filelines);
+        auto variableMap = Parser<LanguageType::PYTHON>::parseVariables(originalLines);
+        auto converted = vector<LineBase>{};
+        return converted;
     }
 
 private:
-    static vector<LineBase> convert_(vector<Line<LanguageType::PYTHON>> pythonLines) {
-        vector<LineBase> converted;
-
-        return converted;
-    }
 
 protected:
 
 };
 
 template<>
-class Converter<LanguageType::PYTHON> {
+class ConverterManager<LanguageType::PYTHON> {
 
 public:
     static vector<LineBase> convert(vector<string> filelines) {
@@ -63,7 +59,7 @@ protected:
 };
 
 template<>
-class Converter<LanguageType::UNKNOWN> {
+class ConverterManager<LanguageType::UNKNOWN> {
 
 public:
     static vector<LineBase> convert(vector<string> filelines) {

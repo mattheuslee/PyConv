@@ -8,6 +8,7 @@ TEST_CASE("LineType class") {
     SECTION("Line Type To String") {
         CHECK(LineType::lineTypeToString(LineType::BLANK) == "blank");
         CHECK(LineType::lineTypeToString(LineType::ELIF_STATEMENT) == "elif");
+        CHECK(LineType::lineTypeToString(LineType::ELSE_STATEMENT) == "else");
         CHECK(LineType::lineTypeToString(LineType::ELSE_IF_STATEMENT) == "else if");
         CHECK(LineType::lineTypeToString(LineType::FOR_LOOP) == "for");
         CHECK(LineType::lineTypeToString(LineType::IF_STATEMENT) == "if");

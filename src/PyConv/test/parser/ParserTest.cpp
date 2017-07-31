@@ -21,7 +21,7 @@ TEST_CASE("Parser class") {
     SECTION("Process") {
         vector<string> lines = TestUtil::getSamplePythonLineStrings();
 
-        vector<Line<LanguageType::PYTHON>> processedLines = Parser<LanguageType::PYTHON>::process(lines);
+        vector<Line<LanguageType::PYTHON>> processedLines = Parser<LanguageType::PYTHON>::preProcess(lines);
         REQUIRE(processedLines.size() == 7);
         CHECK(processedLines[0].line() == "i = 5");
         CHECK(processedLines[0].languageType() == LanguageType::PYTHON);

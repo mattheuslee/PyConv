@@ -133,8 +133,8 @@ private:
     string lastMessage_;
 
     static string getTime_() {
-        time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        string currentTimeStr = ctime(&currentTime);
+        auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        auto currentTimeStr = string{ctime(&currentTime)};
         return currentTimeStr.erase(currentTimeStr.size() - 1); // Remove newline character
     }
 
