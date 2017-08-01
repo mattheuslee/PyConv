@@ -21,7 +21,7 @@ PyConv: $(MAIN_FILES)
 run: $(MAIN_FILES)
 	make clean
 	make PyConv
-	./PyConv cpp ./convert/1.py
+	./PyConv cpp ./input/1.py ./output/1.cpp
 
 clean:
 	rm -f -r ./*.cpp ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt filenames.txt gcov_folder

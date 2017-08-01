@@ -42,7 +42,7 @@ template<language_t L = LanguageType::PYTHON>
 class Parser {
 
 public:
-    static pair<vector<Line<LanguageType::PYTHON>>, VariableMap> preprocess(vector<string> const & lines) {
+    static pair<vector<Line>, VariableMap> preprocess(vector<string> const & lines) {
         auto processedLines = initialConstruct_(lines);
         processIndentationLevels_(processedLines);
         processVariableDeclarationAndAssigment_(processedLines);
@@ -52,7 +52,7 @@ public:
     }
 
 private:
-    static void printInfo(vector<Line<LanguageType::PYTHON>> const & lines) {
+    static void printInfo(vector<Line> const & lines) {
         ostringstream message;
         message << "Processed python lines:" << endl;
         for (auto const & line : lines) {
@@ -72,23 +72,24 @@ private:
         MLogger::logInfo(message.str());
     }
 
-    static vector<Line<LanguageType::PYTHON>> initialConstruct_(vector<string> const & lines) {
-        vector<Line<LanguageType::PYTHON>> initiallyConstructedLines;
+    static vector<Line> initialConstruct_(vector<string> const & lines) {
+        vector<Line> initiallyConstructedLines;
         for (auto const & line : lines) {
             initiallyConstructedLines.push_back(constructPythonLine_(line));
         }
         return initiallyConstructedLines;
     }
 
-    static Line<LanguageType::PYTHON> constructPythonLine_(string const & line) {
-        Line<LanguageType::PYTHON> pythonLine;
+    static Line constructPythonLine_(string const & line) {
+        Line pythonLine;
         pythonLine.line(StringUtil::trimLeading(line))
                   .numWhitespace(StringUtil::numLeadingWhitespace(line))
+                  .languageType(LanguageType::PYTHON)
                   .lineType(LineUtil<LanguageType::PYTHON>::lineType(StringUtil::trimLeading(line)));
         return pythonLine;
     }
 
-    static void processIndentationLevels_(vector<Line<LanguageType::PYTHON>> & lines) {
+    static void processIndentationLevels_(vector<Line> & lines) {
         // TODO figure out better way to handle this
         auto whitespacePerTab = 4;
         for (auto & line : lines) {
@@ -107,7 +108,7 @@ private:
         }*/
     }
 
-    static void processVariableDeclarationAndAssigment_(vector<Line<LanguageType::PYTHON>> & lines) {
+    static void processVariableDeclarationAndAssigment_(vector<Line> & lines) {
         VariableMap variableMap;
         for (auto & line : lines) {
             if (line.lineType() == LineType::VARIABLE) {
@@ -123,7 +124,7 @@ private:
         }
     }
 
-    static VariableMap parseVariables_(vector<Line<LanguageType::PYTHON>> const & lines) {
+    static VariableMap parseVariables_(vector<Line> const & lines) {
         auto variableMap = VariableMap{};
         for (auto const & line : lines) {
             if (line.lineType() == LineType::VARIABLE_DECLARATION) {

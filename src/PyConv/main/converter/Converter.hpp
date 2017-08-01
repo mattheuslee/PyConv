@@ -8,7 +8,6 @@
 #include "main/util/logging/MLogger.hpp"
 #include "main/language/LanguageType.hpp"
 #include "main/language/types/line/Line.hpp"
-#include "main/language/types/line/LineBase.hpp"
 #include "main/language/types/line/LineType.hpp"
 #include "main/language/types/line/LineUtil.hpp"
 #include "main/language/types/variable/VariableMap.hpp"
@@ -25,7 +24,6 @@ using std::vector;
 using pyconv::exception::ConversionException;
 using pyconv::language::LanguageType;
 using pyconv::language::types::line::Line;
-using pyconv::language::types::line::LineBase;
 using pyconv::language::types::line::LineType;
 using pyconv::language::types::line::LineUtil;
 using pyconv::language::types::variable::VariableMap;
@@ -36,27 +34,27 @@ using pyconv::parser::Parser;
 using language_t = LanguageType::language_t;
 
 template<language_t TargetLanguageType = LanguageType::CPP>
-class ConverterManager {
+class Converter {
 
 public:
-    static vector<LineBase> convert(vector<string> filelines) {
+    static vector<Line> convert(vector<string> filelines) {
         MLogger::logInfo("Converting from python to cpp");
-        auto originalLines = vector<Line<LanguageType::PYTHON>>{};
+        auto originalLines = vector<Line>{};
         auto variableMap = VariableMap{};
         tie(originalLines, variableMap) = Parser<LanguageType::PYTHON>::preprocess(filelines);
-        auto converted = vector<LineBase>{};
+        auto converted = vector<Line>{};
         for (auto line : originalLines) {
-            LineBase lineBase;
-            converted.push_back(lineBase.line(convertLine_(line, variableMap))
-                                        .lineType(line.lineType())
-                                        .numWhitespace(line.numWhitespace())
-                                        .indentationLevel(line.indentationLevel()));
+            Line convertedline;
+            converted.push_back(convertedline.line(convertLine_(line, variableMap))
+                                             .lineType(line.lineType())
+                                             .numWhitespace(line.numWhitespace())
+                                             .indentationLevel(line.indentationLevel()));
         }
         return converted;
     }
 
 private:
-    static string convertLine_(Line<LanguageType::PYTHON> const & line, VariableMap const & variableMap) {
+    static string convertLine_(Line const & line, VariableMap const & variableMap) {
         if (line.lineType() == LineType::ELIF_STATEMENT) {
             return convertElifStatement_(line.line());
         } else if (line.lineType() == LineType::ELSE_STATEMENT) {
@@ -115,10 +113,10 @@ protected:
 };
 
 template<>
-class ConverterManager<LanguageType::PYTHON> {
+class Converter<LanguageType::PYTHON> {
 
 public:
-    static vector<LineBase> convert(vector<string> filelines) {
+    static vector<Line> convert(vector<string> filelines) {
         MLogger::logError("Converting from python to python, nothing to be done");
         throw ConversionException("Converting from python to python, nothing to be done");
     }
@@ -130,10 +128,10 @@ protected:
 };
 
 template<>
-class ConverterManager<LanguageType::UNKNOWN> {
+class Converter<LanguageType::UNKNOWN> {
 
 public:
-    static vector<LineBase> convert(vector<string> filelines) {
+    static vector<Line> convert(vector<string> filelines) {
         MLogger::logError("Unknown language type to convert to");
         throw ConversionException("Unknown language type to convert to");
     }

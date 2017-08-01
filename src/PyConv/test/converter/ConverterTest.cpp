@@ -4,14 +4,14 @@
 #include <vector>
 
 #include "main/exception/ConversionException.hpp"
-#include "main/converter/ConverterManager.hpp"
+#include "main/converter/Converter.hpp"
 #include "main/language/LanguageType.hpp"
 #include "test/TestUtil.hpp"
 
-TEST_CASE("ConverterManager class") {
+TEST_CASE("Converter class") {
     using std::string;
     using std::vector;
-    using pyconv::converter::ConverterManager;
+    using pyconv::converter::Converter;
     using pyconv::exception::ConversionException;
     using pyconv::language::LanguageType;
     using pyconv::TestUtil;
@@ -20,15 +20,15 @@ TEST_CASE("ConverterManager class") {
         auto lines = TestUtil::getSamplePythonLineStrings();
 
         // Converting from python to python
-        CHECK_THROWS_AS(ConverterManager<LanguageType::PYTHON>::convert(lines), ConversionException);
+        CHECK_THROWS_AS(Converter<LanguageType::PYTHON>::convert(lines), ConversionException);
 
         // Unknown conversion target language
-        CHECK_THROWS_AS(ConverterManager<LanguageType::UNKNOWN>::convert(lines), ConversionException);
+        CHECK_THROWS_AS(Converter<LanguageType::UNKNOWN>::convert(lines), ConversionException);
     }
 
     SECTION("Convert No Throw") {
         auto lines = TestUtil::getSamplePythonLineStrings();
-        auto convertedLines = ConverterManager<LanguageType::CPP>::convert(lines);
+        auto convertedLines = Converter<LanguageType::CPP>::convert(lines);
 
         REQUIRE(convertedLines.size() == TestUtil::SAMPLE_NUM_LINES);
         auto idx = 0;

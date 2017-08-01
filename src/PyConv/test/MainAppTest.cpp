@@ -25,10 +25,16 @@ TEST_CASE("MainApp class") {
         try {
             MainApp mainApp(args);
         } catch (InvalidArgumentException const & e) {
-            CHECK(e.message() == "Only one argument provided");
+            CHECK(e.message() == "Pairs of input/output files required");
+        }
+        args.push_back("nonexistingfolder/nonexistingfile.py");
+        try {
+            MainApp mainApp(args);
+        } catch (InvalidArgumentException const & e) {
+            CHECK(e.message() == "Pairs of input/output files required");
         }
         args[0] = "java";
-        args.push_back("nonexistingfolder/nonexistingfile.py");
+        args.push_back("nonexistingfolder/nonexistingfile2.py");
         try {
             MainApp mainApp(args);
         } catch (InvalidArgumentException const & e) {
@@ -37,7 +43,7 @@ TEST_CASE("MainApp class") {
     }
 
     SECTION("No Exceptions Thrown") {
-        vector<string> args {"cpp", "./src/PyConv/test/testfiles/properFile.py"};
+        vector<string> args {"cpp", "./src/PyConv/test/testfiles/properFile.py", "./src/PyConv/test/testfiles/outputFile.cpp"};
         MainApp mainApp(args);
         CHECK_NOTHROW(mainApp.run());
         args[0] = "python";

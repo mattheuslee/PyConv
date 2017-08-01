@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "main/language/LanguageType.hpp"
+#include "main/language/types/line/Line.hpp"
 #include "main/language/types/line/LineType.hpp"
 #include "main/util/StringUtil.hpp"
 
@@ -11,7 +13,10 @@ namespace language {
 namespace types {
 namespace line {
 
+using std::string;
+using std::vector;
 using pyconv::language::LanguageType;
+using pyconv::language::types::line::Line;
 using pyconv::language::types::line::LineType;
 using pyconv::util::StringUtil;
 
@@ -41,6 +46,14 @@ public:
     static string extractForStatement(string const & line) {
         auto numChars = LineType::lineTypeToString(LineType::FOR_LOOP).size();
         return StringUtil::trimTrailingChar(StringUtil::trim(line.substr(numChars)), ':');
+    }
+
+    static vector<string> toStringVector(vector<Line> const & lines) {
+        auto stringVector = vector<string>{};
+        for (auto const & line : lines) {
+            stringVector.push_back(line.line());
+        }
+        return stringVector;
     }
 
 private:

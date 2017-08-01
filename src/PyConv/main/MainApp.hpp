@@ -1,28 +1,35 @@
 #pragma once
 
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "main/converter/ConverterManager.hpp"
+#include "main/converter/Converter.hpp"
 #include "main/exception/ConversionException.hpp"
 #include "main/exception/FileOpenException.hpp"
 #include "main/exception/InvalidArgumentException.hpp"
 #include "main/file/InputFile.hpp"
+#include "main/file/OutputFile.hpp"
 #include "main/language/LanguageType.hpp"
-#include "main/language/types/line/LineBase.hpp"
+#include "main/language/types/line/Line.hpp"
+#include "main/language/types/line/LineUtil.hpp"
 #include "main/util/logging/MLogger.hpp"
 
 namespace pyconv {
 
+using std::make_pair;
+using std::pair;
 using std::string;
 using std::vector;
-using pyconv::converter::ConverterManager;
+using pyconv::converter::Converter;
 using pyconv::exception::ConversionException;
 using pyconv::exception::FileOpenException;
 using pyconv::exception::InvalidArgumentException;
 using pyconv::file::InputFile;
+using pyconv::file::OutputFile;
 using pyconv::language::LanguageType;
-using pyconv::language::types::line::LineBase;
+using pyconv::language::types::line::Line;
+using pyconv::language::types::line::LineUtil;
 
 class MainApp {
 
@@ -33,37 +40,44 @@ public:
     }
 
     void run() {
-        for (string const & filename : filesToConvert_) {
-            openAndConvert_(filename);
+        for (auto const & inputOutputFiles : filesToConvert_) {
+            openAndConvert_(inputOutputFiles);
         }
     }
 
 private:
     int languageType_;
-    vector<string> filesToConvert_;
+    vector<pair<string, string>> filesToConvert_;
 
     InputFile inputFile_;
+    OutputFile outputFile_;
 
-    void openAndConvert_(string const & filename) {
+    void openAndConvert_(pair<string, string> const & inputOutputFiles) {
         try {
-            inputFile_.open(filename);
+            inputFile_.open(inputOutputFiles.first);
         } catch (FileOpenException const & e) {
-            MLogger::logWarn("Unable to open " + filename + ", skipping conversion");
+            MLogger::logWarn("Unable to open " + inputOutputFiles.first + ", skipping conversion");
             return;
         }
         try {
-            vector<LineBase> convertedLines = convertForType_(inputFile_.filelines());
+            auto convertedLines = convertToSpecifiedType_(inputFile_.filelines());
+            outputFile_.filelines(LineUtil<LanguageType::PYTHON>::toStringVector(convertedLines));
+            outputFile_.save(inputOutputFiles.second);
         } catch (ConversionException const & e) {
-            MLogger::logError("Conversion error with " + filename + " : " + e.message());
+            MLogger::logError("Conversion error with " + inputOutputFiles.first + " : " + e.message());
+        } catch (FileOpenException const & e) {
+            MLogger::logError("Unable to open " + inputOutputFiles.second + " for saving");
         }
-        MLogger::logInfo("Converted " + filename + " successfully to " + LanguageType::languageTypeToString(languageType_));
+        MLogger::logInfo("Converted " + inputOutputFiles.first
+                        + " successfully to " + LanguageType::languageTypeToString(languageType_)
+                        + " and saved to " + inputOutputFiles.second);
     }
 
-    vector<LineBase> convertForType_(vector<string> const & filelines) {
+    vector<Line> convertToSpecifiedType_(vector<string> const & filelines) {
         if (languageType_ == LanguageType::PYTHON) {
-            return ConverterManager<LanguageType::PYTHON>::convert(filelines);
+            return Converter<LanguageType::PYTHON>::convert(filelines);
         } else {
-            return ConverterManager<LanguageType::CPP>::convert(filelines);
+            return Converter<LanguageType::CPP>::convert(filelines);
         }
     }
 
@@ -71,9 +85,9 @@ private:
         if (args.size() == 0) {
             MLogger::logFatal("No arguments provided");
             throw InvalidArgumentException("No arguments provided");
-        } else if (args.size() == 1) {
-            MLogger::logFatal("Only one argument provided");
-            throw InvalidArgumentException("Only one argument provided");
+        } else if (args.size() % 2 == 0) {
+            MLogger::logFatal("Pairs of input/output files required");
+            throw InvalidArgumentException("Pairs of input/output files required");
         } else if (!LanguageType::isValidLanguageType(args[0])) {
             MLogger::logFatal("Invalid language type: " + args[0]);
             throw InvalidArgumentException("Invalid language type: " + args[0]);
@@ -84,7 +98,9 @@ private:
         languageType_ = LanguageType::stringToLanguageType(args[0]);
         MLogger::logInfo("Language type selected: " + args[0]);
         args.erase(args.begin());
-        filesToConvert_ = args;
+        for (auto i = 0; i < args.size(); i += 2) {
+            filesToConvert_.push_back(make_pair(args[i], args[i + 1]));
+        }
     }
 
 protected:
