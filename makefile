@@ -6,7 +6,7 @@ GCOV_FILES_LOCATION = gcov_folder
 MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp")
 
 # Source files for tests
-TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
+TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -not -path "./src/PyConv/test/testfiles/*" -and -name "*.cpp")
 # Header files used for tests, for coverage
 TEST_HEADERS := $(shell find ./src/PyConv/main -name "*.hpp")
 
