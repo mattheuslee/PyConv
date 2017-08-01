@@ -53,5 +53,10 @@ TEST_CASE("MainApp class") {
         args[1] = "nonexistingfolder/nonexistingfile.py";
         mainApp = MainApp(args);
         CHECK_NOTHROW(mainApp.run());
+        args[0] = "cpp";
+        args[1] = "./src/PyConv/test/testfiles/properFile.py";
+        args[2] = "nonexistingfolder/nonexistingfile.py";
+        mainApp = MainApp(args);
+        CHECK_NOTHROW(mainApp.run());
     }
 }
