@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -21,6 +22,7 @@ namespace pyconv {
 namespace parser {
 
 using std::endl;
+using std::find;
 using std::make_pair;
 using std::ostringstream;
 using std::pair;
@@ -140,6 +142,46 @@ private:
         }
         return variableMap;
     }
+
+protected:
+
+};
+
+template<>
+class Parser<LanguageType::CPP> {
+
+public:
+    static void processCloseBraces(vector<Line> & lines) {
+        auto prevIndentationLevel = 0;
+        for (auto it = lines.begin(); it != lines.end(); ++it) {
+            auto & line = *it;
+            if (line.indentationLevel() < prevIndentationLevel && line.line().find("}") == string::npos) {
+                Line closeBrace;
+                closeBrace.line("}")
+                          .languageType(LanguageType::CPP)
+                          .lineType(LineType::CLOSE_BRACE)
+                          .numWhitespace(0); // 0 whitespace
+                auto currIndentationLevel = line.indentationLevel(); // Held separately due to it changing
+                MLogger::logInfo("outside");
+                for (int i = prevIndentationLevel - 1; i >= currIndentationLevel; --i) {
+                    MLogger::logInfo(StringUtil::toString(i));
+                    closeBrace.indentationLevel(i);
+                    it = lines.insert(it, closeBrace);
+                    ++it; // Incrementing it to ensure correct insertion
+                }
+            }
+            prevIndentationLevel = line.indentationLevel();
+        }
+        return;
+    }
+
+    static void processIndentation(vector<Line> & lines) {
+        auto whitespacePerLevel = 4;
+        for (auto & line : lines) {
+            line.line(StringUtil::addLeadingWhitespace(line.line(), line.indentationLevel() * whitespacePerLevel));
+        }
+    }
+private:
 
 protected:
 

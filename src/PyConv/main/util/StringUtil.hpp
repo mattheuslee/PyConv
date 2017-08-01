@@ -75,6 +75,10 @@ public:
         return distance(s.begin(), it);
     }
 
+    static string addLeadingWhitespace(string const & s, int const & numWhitespace) {
+        return string(numWhitespace, ' ') + s;
+    }
+
     static string extractFirstWord(string const & s) {
         auto temp = trimLeading(s);
         auto it = s.begin();

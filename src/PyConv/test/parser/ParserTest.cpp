@@ -100,4 +100,22 @@ TEST_CASE("Parser class") {
         CHECK(processedLines[idx].numWhitespace() == 0);
         CHECK(processedLines[idx].indentationLevel() == 0);
     }
+
+    SECTION("Process Close Braces") {
+
+    }
+
+    SECTION("Process Indentation") {
+        auto lines = vector<Line>{};
+        Line line;
+        lines.push_back(line.line("test1").indentationLevel(0));
+        lines.push_back(line.line("test2").indentationLevel(1));
+        lines.push_back(line.line("test3").indentationLevel(2));
+        Parser<LanguageType::CPP>::processIndentation(lines);
+
+        REQUIRE(lines.size() == 3);
+        CHECK(lines[0].line() == "test1");
+        CHECK(lines[1].line() == "    test2");
+        CHECK(lines[2].line() == "        test3");
+    }
 }

@@ -48,8 +48,11 @@ public:
             converted.push_back(convertedline.line(convertLine_(line, variableMap))
                                              .lineType(line.lineType())
                                              .numWhitespace(line.numWhitespace())
-                                             .indentationLevel(line.indentationLevel()));
+                                             .indentationLevel(line.indentationLevel())
+                                             .languageType(LanguageType::CPP));
         }
+        Parser<LanguageType::CPP>::processCloseBraces(converted);
+        Parser<LanguageType::CPP>::processIndentation(converted);
         return converted;
     }
 

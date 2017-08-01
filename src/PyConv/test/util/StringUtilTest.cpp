@@ -37,6 +37,12 @@ TEST_CASE("StringUtil class") {
         CHECK(StringUtil::numLeadingWhitespace("    test") == 4);
     }
 
+    SECTION("Add Leading Whitespace") {
+        CHECK(StringUtil::addLeadingWhitespace("test", 0) == "test");
+        CHECK(StringUtil::addLeadingWhitespace("test", 4) == "    test");
+        CHECK(StringUtil::addLeadingWhitespace("test", 8) == "        test");
+    }
+
     SECTION("Extract First Word") {
         CHECK(StringUtil::extractFirstWord("") == "");
         CHECK(StringUtil::extractFirstWord("test") == "test");

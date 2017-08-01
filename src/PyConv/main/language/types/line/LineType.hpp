@@ -15,21 +15,24 @@ public:
     typedef int line_t;
 
     static const line_t BLANK = 0;
-    static const line_t ELIF_STATEMENT = 1;
-    static const line_t ELSE_IF_STATEMENT = 2;
-    static const line_t ELSE_STATEMENT = 3;
-    static const line_t FOR_LOOP = 4;
-    static const line_t IF_STATEMENT = 5;
-    static const line_t PRINT_STATEMENT = 6;
-    static const line_t VARIABLE = 7;
-    static const line_t VARIABLE_ASSIGNMENT = 8;
-    static const line_t VARIABLE_DECLARATION = 9;
+    static const line_t CLOSE_BRACE = 1;
+    static const line_t ELIF_STATEMENT = 2;
+    static const line_t ELSE_IF_STATEMENT = 3;
+    static const line_t ELSE_STATEMENT = 4;
+    static const line_t FOR_LOOP = 5;
+    static const line_t IF_STATEMENT = 6;
+    static const line_t PRINT_STATEMENT = 7;
+    static const line_t VARIABLE = 8;
+    static const line_t VARIABLE_ASSIGNMENT = 9;
+    static const line_t VARIABLE_DECLARATION = 10;
     static const line_t UNKNOWN = -1;
 
     static string lineTypeToString(line_t const & lineType) {
         switch(lineType) {
         case BLANK:
             return "blank";
+        case CLOSE_BRACE:
+            return "}";
         case ELIF_STATEMENT:
             return "elif";
         case ELSE_STATEMENT:
@@ -57,6 +60,8 @@ public:
     static line_t firstWordToLineType(string const & firstWord) {
         if (firstWord == "") {
             return LineType::BLANK;
+        } else if (firstWord == "}") {
+            return LineType::CLOSE_BRACE;
         } else if (firstWord == "elif") {
             return LineType::ELIF_STATEMENT;
         } else if (firstWord == "else") {

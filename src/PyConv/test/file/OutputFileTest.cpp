@@ -29,7 +29,7 @@ TEST_CASE("OutputFile class") {
             "line2",
             "line3",
             "    line4",
-            "    line5"
+            "    line5",
         };
         outputFile.filelines(filelines);
         CHECK_NOTHROW(outputFile.save("./src/PyConv/test/testfiles/outputTestFile.txt"));
