@@ -34,7 +34,7 @@ public:
         while (getline(file, line)) {
             filelines_.push_back(StringUtil::trimTrailing(line));
         }
-        //filelines_.push_back("");
+        filelines_.push_back("");
         MLogger::logInfo("Successfully read input from: " + filename);
     }
     vector<string> filelines() const {

@@ -162,9 +162,7 @@ public:
                           .lineType(LineType::CLOSE_BRACE)
                           .numWhitespace(0); // 0 whitespace
                 auto currIndentationLevel = line.indentationLevel(); // Held separately due to it changing
-                MLogger::logInfo("outside");
                 for (int i = prevIndentationLevel - 1; i >= currIndentationLevel; --i) {
-                    MLogger::logInfo(StringUtil::toString(i));
                     closeBrace.indentationLevel(i);
                     it = lines.insert(it, closeBrace);
                     ++it; // Incrementing it to ensure correct insertion

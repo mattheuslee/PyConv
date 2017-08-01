@@ -8,3 +8,6 @@ for (k in {0, 10}) {
         print ("10!");
     } else {
         print ("Not 5 or 10!");
+    }
+}
+

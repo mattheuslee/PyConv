@@ -47,16 +47,3 @@ coverage: $(TEST_FILES)
 	make clean
 	$(CC) -o test $^ $(COV_CFLAGS)
 	./test
-
-
-temp2:
-	-mkdir $(GCOV_FILES_LOCATION)
-# gather all .hpp files to be analysed
-	find ./src/PyConv/main -name "*.hpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
-	-cp *.gcno $(GCOV_FILES_LOCATION)
-	-cp *.gcda $(GCOV_FILES_LOCATION)
-	find ./$(GCOV_FILES_LOCATION) -name "*.hpp" -and -not -name "catch.hpp" -exec basename {} > ./$(GCOV_FILES_LOCATION)/filenames.txt \;
-	make clean_retain_coverage
-	cp ./$(GCOV_FILES_LOCATION)/*.* .
-	sh ./gcov_loop.sh
-	make clean_retain_coverage
