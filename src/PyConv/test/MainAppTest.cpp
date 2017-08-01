@@ -49,9 +49,9 @@ TEST_CASE("MainApp class") {
         args[0] = "python";
         mainApp = MainApp(args);
         CHECK_NOTHROW(mainApp.run());
+        args[0] = "cpp";
         args[1] = "nonexistingfolder/nonexistingfile.py";
         mainApp = MainApp(args);
         CHECK_NOTHROW(mainApp.run());
-
     }
 }
