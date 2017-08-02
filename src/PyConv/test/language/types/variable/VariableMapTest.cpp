@@ -4,7 +4,7 @@
 #include "main/language/types/variable/VariableMap.hpp"
 #include "main/language/types/variable/VariableType.hpp"
 
-TEST_CASE("VariableMapTest class") {
+TEST_CASE("VariableMap class") {
     using pyconv::language::types::variable::VariableBase;
     using pyconv::language::types::variable::VariableMap;
     using pyconv::language::types::variable::VariableType;

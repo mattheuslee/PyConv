@@ -6,7 +6,7 @@ GCOV_FILES_LOCATION = gcov_folder
 MAIN_FILES := $(shell find ./src/PyConv/main -name "*.cpp")
 
 # Source files for tests
-TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -name "*.cpp")
+TEST_FILES := $(shell find ./src/PyConv -not -name "PyConv.cpp" -and -not -path "./src/PyConv/test/testfiles/*" -and -name "*.cpp")
 # Header files used for tests, for coverage
 TEST_HEADERS := $(shell find ./src/PyConv/main -name "*.hpp")
 
@@ -21,7 +21,7 @@ PyConv: $(MAIN_FILES)
 run: $(MAIN_FILES)
 	make clean
 	make PyConv
-	./PyConv cpp ./convert/1.py
+	./PyConv cpp ./input/1.py ./output/1.cpp
 
 clean:
 	rm -f -r ./*.cpp ./*.gcda ./*.gcno ./*.o ./*.exe ./*.gcov gcovlog.txt filenames.txt gcov_folder
@@ -47,18 +47,3 @@ coverage: $(TEST_FILES)
 	make clean
 	$(CC) -o test $^ $(COV_CFLAGS)
 	./test
-#	-mkdir $(GCOV_FILES_LOCATION)
-#gather all .hpp files to be analysed
-#	find ./src/PyConv/main -name "*.hpp" -exec cp -t ./$(GCOV_FILES_LOCATION) {} \;
-#	-cp *.gcno $(GCOV_FILES_LOCATION)
-#	-cp *.gcda $(GCOV_FILES_LOCATION)
-
-temp2:
-	-mkdir $(GCOV_FILES_LOCATION)
-	find ./$(GCOV_FILES_LOCATION) -name "*.hpp" -and -not -name "catch.hpp" -exec basename {} > ./$(GCOV_FILES_LOCATION)/filenames.txt \;
-	make clean_retain_coverage
-
-temp:
-	cp ./$(GCOV_FILES_LOCATION)/*.* .
-	sh ./gcov_loop.sh
-	make clean_retain_coverage

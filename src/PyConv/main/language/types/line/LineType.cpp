@@ -8,6 +8,7 @@ namespace line {
 using line_t = LineType::line_t;
 
 const line_t LineType::BLANK;
+const line_t LineType::CLOSE_BRACE;
 const line_t LineType::ELIF_STATEMENT;
 const line_t LineType::ELSE_IF_STATEMENT;
 const line_t LineType::ELSE_STATEMENT;

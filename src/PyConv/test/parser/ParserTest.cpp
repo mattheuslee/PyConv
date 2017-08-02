@@ -18,51 +18,104 @@ TEST_CASE("Parser class") {
     using pyconv::parser::Parser;
     using pyconv::TestUtil;
 
-    SECTION("Process") {
-        vector<string> lines = TestUtil::getSamplePythonLineStrings();
+    SECTION("Preprocess") {
+        auto lines = TestUtil::getSamplePythonLineStrings();
+        auto processedLines = Parser<LanguageType::PYTHON>::preprocess(lines).first;
 
-        vector<Line<LanguageType::PYTHON>> processedLines = Parser<LanguageType::PYTHON>::process(lines);
-        REQUIRE(processedLines.size() == 7);
-        CHECK(processedLines[0].line() == "i = 5");
-        CHECK(processedLines[0].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[0].lineType() == LineType::VARIABLE_DECLARATION);
-        CHECK(processedLines[0].numWhitespace() == 0);
-        CHECK(processedLines[0].indentationLevel() == 0);
+        REQUIRE(processedLines.size() == TestUtil::SAMPLE_NUM_LINES);
+        auto idx = 0;
+        CHECK(processedLines[idx].line() == "i = 5");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::VARIABLE_DECLARATION);
+        CHECK(processedLines[idx].numWhitespace() == 0);
+        CHECK(processedLines[idx].indentationLevel() == 0);
 
-        CHECK(processedLines[1].line() == "i = 10");
-        CHECK(processedLines[1].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[1].lineType() == LineType::VARIABLE_ASSIGNMENT);
-        CHECK(processedLines[1].numWhitespace() == 0);
-        CHECK(processedLines[1].indentationLevel() == 0);
+        ++idx;
+        CHECK(processedLines[idx].line() == "i = 10");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::VARIABLE_ASSIGNMENT);
+        CHECK(processedLines[idx].numWhitespace() == 0);
+        CHECK(processedLines[idx].indentationLevel() == 0);
 
-        CHECK(processedLines[2].line() == "if i == 5:");
-        CHECK(processedLines[2].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[2].lineType() == LineType::IF_STATEMENT);
-        CHECK(processedLines[2].numWhitespace() == 0);
-        CHECK(processedLines[2].indentationLevel() == 0);
+        ++idx;
+        CHECK(processedLines[idx].line() == "j = i");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::VARIABLE_DECLARATION);
+        CHECK(processedLines[idx].numWhitespace() == 0);
+        CHECK(processedLines[idx].indentationLevel() == 0);
 
-        CHECK(processedLines[3].line() == "print \"5!\"");
-        CHECK(processedLines[3].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[3].lineType() == LineType::PRINT_STATEMENT);
-        CHECK(processedLines[3].numWhitespace() == 4);
-        CHECK(processedLines[3].indentationLevel() == 1);
+        ++idx;
+        CHECK(processedLines[idx].line() == "for k in {0, 10}:");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::FOR_LOOP);
+        CHECK(processedLines[idx].numWhitespace() == 0);
+        CHECK(processedLines[idx].indentationLevel() == 0);
 
-        CHECK(processedLines[4].line() == "else:");
-        CHECK(processedLines[4].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[4].lineType() == LineType::ELSE_STATEMENT);
-        CHECK(processedLines[4].numWhitespace() == 0);
-        CHECK(processedLines[4].indentationLevel() == 0);
+        ++idx;
+        CHECK(processedLines[idx].line() == "if k == 5:");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::IF_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
 
-        CHECK(processedLines[5].line() == "print \"not 5!\"");
-        CHECK(processedLines[5].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[5].lineType() == LineType::PRINT_STATEMENT);
-        CHECK(processedLines[5].numWhitespace() == 4);
-        CHECK(processedLines[5].indentationLevel() == 1);
+        ++idx;
+        CHECK(processedLines[idx].line() == "print (\"5!\")");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
 
-        CHECK(processedLines[6].line() == "");
-        CHECK(processedLines[6].languageType() == LanguageType::PYTHON);
-        CHECK(processedLines[6].lineType() == LineType::BLANK);
-        CHECK(processedLines[6].numWhitespace() == 0);
-        CHECK(processedLines[6].indentationLevel() == 0);
+        ++idx;
+        CHECK(processedLines[idx].line() == "elif k == 10:");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::ELIF_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
+
+        ++idx;
+        CHECK(processedLines[idx].line() == "print (\"10!\")");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
+
+        ++idx;
+        CHECK(processedLines[idx].line() == "else:");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::ELSE_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 4);
+        CHECK(processedLines[idx].indentationLevel() == 1);
+
+        ++idx;
+        CHECK(processedLines[idx].line() == "print (\"Not 5 or 10!\")");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::PRINT_STATEMENT);
+        CHECK(processedLines[idx].numWhitespace() == 8);
+        CHECK(processedLines[idx].indentationLevel() == 2);
+
+        ++idx;
+        CHECK(processedLines[idx].line() == "");
+        CHECK(processedLines[idx].languageType() == LanguageType::PYTHON);
+        CHECK(processedLines[idx].lineType() == LineType::BLANK);
+        CHECK(processedLines[idx].numWhitespace() == 0);
+        CHECK(processedLines[idx].indentationLevel() == 0);
+    }
+
+    SECTION("Process Close Braces") {
+
+    }
+
+    SECTION("Process Indentation") {
+        auto lines = vector<Line>{};
+        Line line;
+        lines.push_back(line.line("test1").indentationLevel(0));
+        lines.push_back(line.line("test2").indentationLevel(1));
+        lines.push_back(line.line("test3").indentationLevel(2));
+        Parser<LanguageType::CPP>::processIndentation(lines);
+
+        REQUIRE(lines.size() == 3);
+        CHECK(lines[0].line() == "test1");
+        CHECK(lines[1].line() == "    test2");
+        CHECK(lines[2].line() == "        test3");
     }
 }

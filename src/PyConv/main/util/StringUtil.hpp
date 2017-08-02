@@ -1,19 +1,29 @@
 #pragma once
 
 #include <algorithm>
+#include <cctype>
 #include <iterator>
+#include <sstream>
 #include <string>
 
 namespace pyconv {
 namespace util {
 
 using std::distance;
+using std::ostringstream;
 using std::string;
 using std::transform;
 
 class StringUtil {
 
 public:
+    template<typename T>
+    static string toString(T const & t) {
+        ostringstream result;
+        result << t;
+        return result.str();
+    }
+
     static string trimLeading(string const & s) {
         auto it = s.begin();
         while (it != s.end() && isspace(*it)) {
@@ -46,13 +56,13 @@ public:
     }
 
     static string toLowerCase(string const & s) {
-        string result = s;
+        auto result = s;
         transform(s.begin(), s.end(), result.begin(), ::tolower);
         return result;
     }
 
     static string toUpperCase(string const & s) {
-        string result = s;
+        auto result = s;
         transform(s.begin(), s.end(), result.begin(), ::toupper);
         return result;
     }
@@ -65,13 +75,26 @@ public:
         return distance(s.begin(), it);
     }
 
+    static string addLeadingWhitespace(string const & s, int const & numWhitespace) {
+        return string(numWhitespace, ' ') + s;
+    }
+
     static string extractFirstWord(string const & s) {
-        string temp = trimLeading(s);
+        auto temp = trimLeading(s);
         auto it = s.begin();
         while (it != s.end() && !isspace(*it)) {
             ++it;
         }
         return string(s.begin(), it);
+    }
+
+    static bool isAllDigit(string const & s) {
+        for (auto c : s) {
+            if (!isdigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 private:

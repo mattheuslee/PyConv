@@ -40,7 +40,7 @@ public:
         return *this;
     }
 
-    variable_t variableType() {
+    variable_t variableType() const {
         return variableType_;
     }
 
